@@ -288,6 +288,15 @@ class UserModel extends Model {
     required String userSchool,
     required String userJobTitle,
     required String userBio,
+    required String userCaste,
+    required String userReligion,
+    required String userEducation,
+    required List<String> userLanguage,
+    required String userdrink,
+    required String usersmoke,
+    required String userHeight,
+    required String userMarriedSatus,
+    required String userURBB,
     // Callback functions
     required VoidCallback onSuccess,
     required Function(String) onFail,
@@ -332,6 +341,15 @@ class UserModel extends Model {
         .collection(C_USERS)
         .doc(this.getFirebaseUser!.uid)
         .set(<String, dynamic>{
+     USER_CASTE :userCaste,
+    USER_RELIGION :userReligion,
+    USER_HEIGHT :userHeight,
+     USER_SMOKE :usersmoke,
+     USER_MARITAL :userMarriedSatus,
+    USER_URBB :userURBB,
+     USER_DRINK :userdrink,
+      USER_LANGUAGE:userLanguage,
+     USER_EDUCATION :userEducation,
       USER_ID: this.getFirebaseUser!.uid,
       USER_PROFILE_PHOTO: imageProfileUrl,
       USER_FULLNAME: userFullName,

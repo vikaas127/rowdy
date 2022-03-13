@@ -82,6 +82,15 @@ const String ADMOB_INTERSTITIAL_AD_ID = "admob_interstitial_ad_id";
 
 /// DATABASE FIELDS FOR USER COLLECTION  ///
 ///
+const String USER_CASTE = "user_caste";
+const String USER_LANGUAGE = "user_language";
+const String USER_RELIGION = "user_religion";
+const String USER_HEIGHT = "user_height";
+const String USER_SMOKE = "user_smoke";
+const String USER_MARITAL = "user_maritalstatus";
+const String USER_URBB = "user_URBB";
+const String USER_DRINK = "user_drink";
+const String USER_EDUCATION = "user_education";
 const String USER_ID = "user_id";
 const String USER_PROFILE_PHOTO = "user_photo_link";
 const String USER_FULLNAME = "user_fullname";

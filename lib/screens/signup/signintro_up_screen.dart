@@ -8,10 +8,8 @@ import 'package:dating_app/screens/home_screen.dart';
 import 'package:dating_app/widgets/image_source_sheet.dart';
 import 'package:dating_app/widgets/linearprogressbar.dart';
 import 'package:dating_app/widgets/processing.dart';
-import 'package:dating_app/widgets/show_scaffold_msg.dart';
-import 'package:dating_app/widgets/svg_icon.dart';
-import 'package:dating_app/widgets/terms_of_service_row.dart';
-import 'package:dating_app/widgets/widget.dart';
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dating_app/widgets/default_button.dart';
@@ -20,12 +18,17 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:chips_choice/chips_choice.dart';
 
 import '../AppQustions/dating_question.dart';
-class intro_up_screen extends StatefulWidget {
+
+class Introscreen extends StatefulWidget {
+  final   Map<String ,dynamic>   userdata;
+
+  const Introscreen({Key? key, required this.userdata,}) : super(key: key);
+
   @override
-  _intro_up_screenState createState() => _intro_up_screenState();
+  createState() => _Intro_up_screenState();
 }
 
-class _intro_up_screenState extends State<intro_up_screen> {
+class _Intro_up_screenState extends State<Introscreen> {
   // Variables
   int tag = 1;
   int taggender = 1;
@@ -39,8 +42,7 @@ class _intro_up_screenState extends State<intro_up_screen> {
 
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final _nameController = TextEditingController();
-  final _jobController = TextEditingController();
+
   late PageController _pageController;
   int currentIndex = 0;
 
@@ -49,21 +51,14 @@ class _intro_up_screenState extends State<intro_up_screen> {
  
 
   // End
-  DateTime _initialDateTime = DateTime.now();
-  String? _birthday;
-  File? _imageFile;
-  bool _agreeTerms = false;
+
   String? _selectedGender;
   List<String> _genders = ['Male', 'Female'];
   late AppLocalizations _i18n;
   int slectedIndex = 0;
 
   /// Set terms
-  void _setAgreeTerms(bool value) {
-    setState(() {
-      _agreeTerms = value;
-    });
-  }
+
 
   /// Get image from camera / gallery
   
@@ -71,74 +66,27 @@ class _intro_up_screenState extends State<intro_up_screen> {
   late List<String> _choices;
   late int _choiceIndex;
 
-  // Get Date time picker app locale
-  DateTimePickerLocale _getDatePickerLocale() {
-    // Inicial value
-    DateTimePickerLocale _locale = DateTimePickerLocale.en_us;
-
-    // Handle your Supported Languages here
-    SUPPORTED_LOCALES.forEach((Locale locale) {
-      switch (locale.languageCode) {
-        case 'en': // English
-          _locale = DateTimePickerLocale.en_us;
-          break;
-        case 'es': // Spanish
-          _locale = DateTimePickerLocale.es;
-          break;
-      }
-    });
-
-    return _locale;
-  }
+  final userBioController = TextEditingController();
+  final jobController = TextEditingController();
 
   bool reverse = false;
 
   /// Display date picker.
-  void _showDatePicker() {
-    DatePicker.showDatePicker(
-      context,
-      onMonthChangeStartWithFirstDate: true,
-      pickerTheme: DateTimePickerTheme(
-        showTitle: true,
-        confirm: Text(_i18n.translate('DONE'),
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-                color: Theme
-                    .of(context)
-                    .primaryColor)),
-      ),
-      minDateTime: DateTime(1920, 1, 1),
-      maxDateTime: DateTime.now(),
-      initialDateTime: _initialDateTime,
-      dateFormat: 'yyyy-MMMM-dd',
-      // Date format
-      locale: _getDatePickerLocale(),
-      // Set your App Locale here
-      onClose: () => print("----- onClose -----"),
-      onCancel: () => print('onCancel'),
-      onChange: (dateTime, List<int> index) {
-        // Get birthday info
-       
-      },
-      onConfirm: (dateTime, List<int> index) {
-        // Get birthday info
-      
-      },
-    );
-  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
     /// Initialization
     _i18n = AppLocalizations.of(context);
-    _birthday = "age";
+
   }
   @override
   void initState() {
+widget.userdata;
     _pageController = PageController(
         initialPage: 0
+
     );
     super.initState();
   }
@@ -146,6 +94,14 @@ class _intro_up_screenState extends State<intro_up_screen> {
   Widget _widget(Widget ab) {
     return ab;
   }
+ String? userMarriedSatus;
+
+
+  List<String>?  userLanguage=[];
+  String? userEducation;
+  String? userHeight;
+  String? usersmoke;
+  String? userdrink;
 
   @override
   void dispose() {
@@ -155,6 +111,7 @@ class _intro_up_screenState extends State<intro_up_screen> {
 
   @override
   Widget build(BuildContext context) {
+
     double height = MediaQuery
         .of(context)
         .size
@@ -216,14 +173,14 @@ class _intro_up_screenState extends State<intro_up_screen> {
             ),
           ],
         ),
-      ) : InkWell(
+      ) :
+      InkWell(
         onTap: () {
           print("Get Started Now");
           //  _settingModalBottomSheet(context);
-           Navigator.push(
-             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-           );
+          _createAccount();
+
+
 
         },
         child: Container(
@@ -340,6 +297,7 @@ class _intro_up_screenState extends State<intro_up_screen> {
                                             onTap: () {
                                               setState(() {
                                                 slectedIndex = index;
+                                                userHeight=datindQustions().Qheight[index];
                                               });
                                             },
                                             trailing: slectedIndex == index ? Icon(
@@ -411,6 +369,7 @@ class _intro_up_screenState extends State<intro_up_screen> {
                                             onTap: () {
                                               setState(() {
                                                 slectedIndex = index;
+                                                userMarriedSatus=datindQustions().QMaritalS[index];
                                               });
                                             },
                                             trailing: slectedIndex == index ? Icon(
@@ -479,6 +438,7 @@ class _intro_up_screenState extends State<intro_up_screen> {
                                             onTap: () {
                                               setState(() {
                                                 slectedIndex = index;
+                                                usersmoke=datindQustions().QMaritalS[index];
                                               });
                                             },
                                             trailing: slectedIndex == index ? Icon(
@@ -546,6 +506,7 @@ class _intro_up_screenState extends State<intro_up_screen> {
                                             onTap: () {
                                               setState(() {
                                                 slectedIndex = index;
+                                               userdrink= datindQustions().QMaritalS[index];
                                               });
                                             },
                                             trailing: slectedIndex == index ? Icon(
@@ -608,6 +569,7 @@ class _intro_up_screenState extends State<intro_up_screen> {
                                       onTap: () {
                                         setState(() {
                                           slectedIndex = index;
+                                          userLanguage= [datindQustions().QMaritalS[index]];
                                         });
                                       },
                                       trailing: slectedIndex == index ? Icon(
@@ -666,6 +628,7 @@ class _intro_up_screenState extends State<intro_up_screen> {
                                       onTap: () {
                                         setState(() {
                                           slectedIndex = index;
+                                          userEducation= datindQustions().QMaritalS[index];
                                         });
                                       },
                                       trailing: slectedIndex == index ? Icon(
@@ -712,7 +675,7 @@ class _intro_up_screenState extends State<intro_up_screen> {
                               .height * 0.020,),
 
                           TextFormField(
-                            controller: _jobController,
+                            controller: jobController,
 
                             decoration: InputDecoration(
 
@@ -783,7 +746,7 @@ class _intro_up_screenState extends State<intro_up_screen> {
 
                           TextFormField(maxLines: 10,
                             maxLength: 300,
-                            controller: _jobController,
+                            controller: userBioController,
 
                             decoration: InputDecoration(
 
@@ -841,6 +804,85 @@ class _intro_up_screenState extends State<intro_up_screen> {
             );
           }),
     );
+  }
+  void _createAccount() async {
+    /// check image file
+    /*  if (_imageFile == null) {
+      // Show error message
+      showScaffoldMessage(
+          context: context,
+          message: _i18n.translate("please_select_your_profile_photo"),
+          bgcolor: Colors.red);
+      // validate terms
+    } else if (!_agreeTerms) {
+      // Show error message
+      showScaffoldMessage(
+          context: context,
+          message: _i18n.translate("you_must_agree_to_our_privacy_policy"),
+          bgcolor: Colors.red);
+
+      /// Validate form
+    } else if (UserModel().calculateUserAge(_initialDateTime) < 18) {
+      // Show error message
+      showScaffoldMessage(
+          context: context,
+          duration: Duration(seconds: 7),
+          message: _i18n.translate(
+              "only_18_years_old_and_above_are_allowed_to_create_an_account"),
+          bgcolor: Colors.red);
+    } *//*else if (*//**//*!_formKey.currentState!.validate()*//**//*) {
+    }*//*
+    else {*/
+    /// Call all input onSaved method
+    //  _formKey.currentState!.save();
+
+    /// Call sign up method
+    UserModel().signUp(
+        userPhotoFile:widget.userdata['userPhotoFile'],
+        userFullName: widget.userdata['userFullName'],
+        userGender: widget.userdata['userGender'],
+        userBirthDay: widget.userdata['userBirthDay'],
+        userBirthMonth: widget.userdata['userBirthMonth'],
+        userBirthYear: widget.userdata['userBirthYear'],
+        userSchool: widget.userdata['userSchool'],
+        userJobTitle:jobController.text ,
+        userBio: userBioController.text,
+        userMarriedSatus: userMarriedSatus!,
+        userReligion: widget.userdata['userreligion'],
+        userURBB:  widget.userdata['userURBB'],
+        userLanguage: userLanguage!,
+        userEducation: userEducation!,
+        userHeight: userHeight!,
+        usersmoke: usersmoke!,
+        userdrink: userdrink!,
+        userCaste: widget.userdata['usercaste'],
+        onSuccess: () async {
+          // Show success message
+          successDialog(context,
+              message: _i18n
+                  .translate("your_account_has_been_created_successfully"),
+              positiveAction: () {
+                // Execute action
+                _goToHomeScreen();
+              });
+        },
+        onFail: (error) {
+          // Debug error
+          debugPrint(error);
+          // Show error message
+          errorDialog(context,
+              message: _i18n.translate("an_error_occurred_while_creating_your_account"));
+        },
+       );
+
+  }
+  void _goToHomeScreen() {
+    /// Go to home screen
+    Future(() {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+              (route) => false);
+    });
   }
   /*void _saveChanges() {
     /// Update uer profile

@@ -51,6 +51,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   int currentIndex = 0;
   /// User Birthday info
   int _userBirthDay = 0;
+  String? userCaste;
+  String? userReligion;
+  String?  userURBB;
   int _userBirthMonth = 0;
   int _userBirthYear = DateTime.now().year;
   // End
@@ -230,10 +233,29 @@ Widget _widget(Widget ab){
     ): InkWell(
       onTap: (){
 
-        setState(() { _createAccount();
-       /*   Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => intro_up_screen()),
-                (route) => false);*/
+        setState(() {
+
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Introscreen(userdata:
+           {
+            "userPhotoFile": _imageFile!,
+            "userFullName": _nameController.text.trim(),
+            "userGender": _selectedGender!,
+            "userBirthDay": _userBirthDay,
+            "userBirthMonth": _userBirthMonth,
+            "userBirthYear": _userBirthYear,
+            "userSchool": _schoolController.text.trim(),
+            "usercaste":userCaste!,
+             "userreligion":userReligion!,
+             "userURBB":userURBB!
+
+            },
+
+
+
+
+            )),
+                (route) => false);
         //  intro_up_screen
         });
         print("Get Started Now");
@@ -797,6 +819,7 @@ trailing:slectedIndex==index?Icon(Icons.check):null ,
                                         child: ListTile(onTap: (){
                                           setState(() {
                                             slectedIndex =index;
+                                            userCaste=searchResultCaste[index];
                                           });
                                         },
                                             trailing:slectedIndex==index?Icon(Icons.check):null ,
@@ -840,6 +863,7 @@ trailing:slectedIndex==index?Icon(Icons.check):null ,
                                         child: ListTile(onTap: (){
                                           setState(() {
                                             slectedIndex =index;
+                                            userCaste=datindQustions().QCaste[index];
                                           });
                                         },
                                           trailing:slectedIndex==index?Icon(Icons.check):null ,
@@ -927,6 +951,7 @@ trailing:slectedIndex==index?Icon(Icons.check):null ,
                                         child: ListTile(onTap: (){
                                           setState(() {
                                             slectedIndex =index;
+                                            userReligion=searchResultReligion[index];
                                           });
                                         },
                                           trailing:slectedIndex==index?Icon(Icons.check):null ,
@@ -969,6 +994,7 @@ trailing:slectedIndex==index?Icon(Icons.check):null ,
                                         child: ListTile(onTap: (){
                                           setState(() {
                                             slectedIndex =index;
+                                           userReligion= datindQustions().QReligion[index];
                                           });
                                         },
                                             trailing:slectedIndex==index?Icon(Icons.check):null ,
@@ -1035,6 +1061,7 @@ trailing:slectedIndex==index?Icon(Icons.check):null ,
                               child: ListTile(onTap: (){
                                 setState(() {
                                   slectedIndex =index;
+                                  userURBB=datindQustions().QRowdybaby[index];
                                 });
                               },
                                 trailing:slectedIndex==index?Icon(Icons.check):null ,
@@ -1081,7 +1108,7 @@ trailing:slectedIndex==index?Icon(Icons.check):null ,
     }
 
     datindQustions().QCaste.forEach((castedata) {
-      if (castedata!.toLowerCase().contains(text.toLowerCase()))
+      if (castedata.toLowerCase().contains(text.toLowerCase()))
         searchResultCaste.add(castedata);
     });
 
@@ -1095,7 +1122,7 @@ trailing:slectedIndex==index?Icon(Icons.check):null ,
     }
 
     datindQustions().QReligion.forEach((religiondata) {
-      if (religiondata!.toLowerCase().contains(text.toLowerCase()))
+      if (religiondata.toLowerCase().contains(text.toLowerCase()))
         searchResultReligion.add(religiondata);
     });
 
@@ -1160,7 +1187,16 @@ trailing:slectedIndex==index?Icon(Icons.check):null ,
             // Show error message
             errorDialog(context,
                 message: _i18n.translate("an_error_occurred_while_creating_your_account"));
-          });
+          },
+          userMarriedSatus: '',
+          userReligion: '',
+          userURBB: '',
+          userLanguage: [],
+          userEducation: '',
+          userHeight: '',
+          usersmoke: '',
+          userdrink: '',
+          userCaste: '');
 
   }
   Widget _buildChip(String label, Color color) {
