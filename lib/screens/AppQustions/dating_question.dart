@@ -1,4 +1,4 @@
- class datindQustions{
+ class Qtns{
 
 
   List<String> Qgenderoptions = [

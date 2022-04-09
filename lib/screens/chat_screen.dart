@@ -336,9 +336,16 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver{
                       controller: _textController,
                       minLines: 1,
                       maxLines: 4,
-                      decoration: InputDecoration(
+                      decoration: InputDecoration(fillColor:  Colors.grey.withAlpha(50),
                           hintText: _i18n.translate("type_a_message"),
-                          border: InputBorder.none),
+                          hintStyle: TextStyle(color:  Color(0xffC5204C),),
+                        focusedBorder:OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide(
+                            color:  Colors.grey.withAlpha(50),
+                            width: 2.0,
+                          ),),
+                      ),
                       onChanged: (text) {
                         setState(() {
                           _isComposing = text.isNotEmpty;

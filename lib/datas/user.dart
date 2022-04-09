@@ -4,6 +4,12 @@ import 'package:dating_app/constants/constants.dart';
 class User {
   /// User info
   final String userId;
+  final String userMarriedsatus;
+  final String userSmoke;
+  final String userDrink;
+  final String userEducation;
+  final List<dynamic> userLang;
+
   final String userProfilePhoto;
   final String userFullname;
   final String userGender;
@@ -11,6 +17,8 @@ class User {
   final int userBirthMonth;
   final int userBirthYear;
   final String userSchool;
+  final String userCaste;
+  final String userReligion;
   final String userJobTitle;
   final String userBio;
   final String userPhoneNumber;
@@ -32,6 +40,13 @@ class User {
 
   // Constructor
   User({
+    required this.userSmoke,
+    required this.userDrink,
+    required this.userEducation,
+    required this.userLang,
+    required this.userMarriedsatus,
+    required this.userCaste,
+    required this.userReligion,
     required this.userId,
     required this.userProfilePhoto,
     required this.userFullname,
@@ -63,6 +78,13 @@ class User {
   /// factory user object
   factory User.fromDocument(Map<String, dynamic> doc) {
     return User(
+      userSmoke: doc[USER_SMOKE],
+      userDrink: doc[USER_DRINK],
+      userEducation: doc[USER_EDUCATION],
+      userLang: doc[USER_LANGUAGE],
+      userMarriedsatus: doc[USER_MARITAL],
+      userReligion: doc[USER_RELIGION],
+      userCaste: doc[USER_CASTE],
       userId: doc[USER_ID],
       userProfilePhoto: doc[USER_PROFILE_PHOTO],
       userFullname: doc[USER_FULLNAME],

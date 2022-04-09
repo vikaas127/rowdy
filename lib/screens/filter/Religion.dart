@@ -3,6 +3,8 @@ import 'package:dating_app/screens/AppQustions/dating_question.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/user_model.dart';
+
 class Religion extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
@@ -12,7 +14,13 @@ class Religion extends StatefulWidget{
 }
 class Religion_state extends State<Religion>{
   int slectedIndex=0;
-  final _nameController = TextEditingController();
+  final _religionController = TextEditingController();
+  @override
+  void initState() {
+    UserModel().user.userReligion.toString() ==_religionController.text.toString();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
   return Scaffold(appBar: AppBar(elevation: 0,backgroundColor: APP_PRIMARY_COLOR,),
@@ -36,7 +44,7 @@ class Religion_state extends State<Religion>{
             padding: const EdgeInsets.symmetric(horizontal: 28.0),
             child: Container(height: 50,
               child: TextFormField(
-                controller: _nameController,
+                controller: _religionController,
                 decoration: InputDecoration(suffixIcon: Icon(Icons.search,color: Colors.white,),
                   //   labelText: _i18n.translate("fullname"),
                   hintText: "Search Religion",
@@ -48,7 +56,7 @@ class Religion_state extends State<Religion>{
             ),
           ),
           ListView.builder(shrinkWrap: true,scrollDirection: Axis.vertical,
-              itemCount:datindQustions().QReligion.length ,
+              itemCount:Qtns().QReligion.length ,
               itemBuilder: (context,index){
                 return Center(child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -58,7 +66,9 @@ class Religion_state extends State<Religion>{
                         child: ListTile(onTap: (){
                           setState(() {
                             slectedIndex =index;
-                          });
+                            UserModel().updateUserData(
+                                userId: UserModel().user.userId,data:
+                            {USER_RELIGION:Qtns().QReligion[index] });   });
                         },
                             trailing:slectedIndex==index?Icon(Icons.check):null ,
                             textColor: Colors.white,
@@ -68,7 +78,7 @@ class Religion_state extends State<Religion>{
 
 
 
-                            title: Text('${datindQustions().QReligion[index]}',textAlign: TextAlign.start,)),
+                            title: Text('${Qtns().QReligion[index]}',textAlign: TextAlign.start,)),
                       ),
                       SizedBox(height: 8,),
                       Divider(thickness: 0.2,color: Colors.white,)

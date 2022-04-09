@@ -40,7 +40,7 @@ class UsersApi {
             field: USER_GEO_POINT,
             strictMode: true)
         .first;
-print(allUsers);
+      print(allUsers);
     // Remove the current user profile - If choosed to see everyone
     if (allUsers.isNotEmpty) {
       allUsers.removeWhere(

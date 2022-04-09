@@ -103,7 +103,19 @@ class MyApp extends StatelessWidget {
 }
 /// App theme
 ThemeData _appTheme() {
-  return ThemeData(
+  return ThemeData(textTheme:TextTheme(
+    bodyText1: TextStyle(color: Colors.white,fontSize: 15),
+    bodyText2: TextStyle(color: Colors.white,fontSize: 15),
+    button: TextStyle(color: Colors.white,fontSize: 15),
+    caption: TextStyle(color: Colors.white,fontSize: 15),
+    headline1: TextStyle(color: Colors.white,fontSize: 15),
+    headline2: TextStyle(color: Colors.white,fontSize: 15),
+    headline3: TextStyle(color: Colors.white,fontSize: 15),
+    headline4: TextStyle(color: Colors.white,fontSize: 15),
+    headline5: TextStyle(color: Colors.white,fontSize: 15),
+    headline6:TextStyle(color: Colors.white,fontSize: 15),
+    overline: TextStyle(color: Colors.white,fontSize: 15),
+  ) ,
     primaryTextTheme: TextTheme(),
     indicatorColor: Color(0xffDE2657),
     checkboxTheme:CheckboxThemeData() ,

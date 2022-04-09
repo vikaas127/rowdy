@@ -73,7 +73,7 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
     super.initState();
     initUserSettings();
   }
-
+  List<bool> _switchValue=[] ;
   // Go to Passport screen
   Future<void> _goToPassportScreen() async {
     // Get picked location result
@@ -114,7 +114,8 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
                   _i18n.translate("we_were_unable_to_update_your_location"));
         });
   }
-  bool _switchValue = false;
+
+
   @override
   Widget build(BuildContext context) {
     /// Initialization
@@ -145,15 +146,14 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
                 Container(
                   child: Center(
                     child: ListTile(onTap: (){
+
               showModalBottomSheet<void>(
                 context: context,
                 builder: (BuildContext context) {
                   return BottomSheetSwitch(title: "Married Status",
                     list: marriedstatus,
-                    switchValue: _switchValue,
-                    valueChanged: (value) {
-                      _switchValue = value;
-                    },
+                    switchValue: Status.MaritalStatus,
+
                   );
                 },
               );
@@ -181,15 +181,14 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
                 Container(
                   child: Center(
                     child: ListTile(onTap: (){
+
                       showModalBottomSheet<void>(
                         context: context,
                         builder: (BuildContext context) {
                           return BottomSheetSwitch(title: "Smoke",
                             list: Smoke,
-                            switchValue: _switchValue,
-                            valueChanged: (value) {
-                              _switchValue = value;
-                            },
+                            switchValue: Status.Smoke,
+
                           );
                         },
                       );
@@ -221,10 +220,8 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
                         builder: (BuildContext context) {
                           return BottomSheetSwitch(title: "Drink",
                             list: Drink,
-                            switchValue: _switchValue,
-                            valueChanged: (value) {
-                              _switchValue = value;
-                            },
+                            switchValue: Status.Drink,
+
                           );
                         },
                       );
@@ -256,10 +253,8 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
                         builder: (BuildContext context) {
                           return BottomSheetSwitch(title: "Education",
                             list: Education,
-                            switchValue: _switchValue,
-                            valueChanged: (value) {
-                              _switchValue = value;
-                            },
+                            switchValue: Status.Education,
+
                           );
                         },
                       );
@@ -291,10 +286,8 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
                         builder: (BuildContext context) {
                           return BottomSheetSwitch(title: "Langague Speaking",
                             list: Language,
-                            switchValue: _switchValue,
-                            valueChanged: (value) {
-                              _switchValue = value;
-                            },
+                            switchValue: Status.Language,
+
                           );
                         },
                       );
@@ -325,10 +318,8 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
                         builder: (BuildContext context) {
                           return BottomSheetSwitch(title: "Why you use Rowdy Baby?",
                             list: Rowdybaby,
-                            switchValue: _switchValue,
-                            valueChanged: (value) {
-                              _switchValue = value;
-                            },
+                            switchValue: Status.whyrowdybaby,
+
                           );
                         },
                       );
@@ -361,4 +352,12 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
           }),
         ));
   }
+}
+enum Status {
+  Smoke,
+  Drink,
+  Education,
+  MaritalStatus,
+  Language,
+  whyrowdybaby
 }

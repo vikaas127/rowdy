@@ -5,25 +5,16 @@ import 'package:dating_app/dialogs/common_dialogs.dart';
 import 'package:dating_app/helpers/app_localizations.dart';
 import 'package:dating_app/models/user_model.dart';
 import 'package:dating_app/screens/home_screen.dart';
-import 'package:dating_app/widgets/image_source_sheet.dart';
 import 'package:dating_app/widgets/linearprogressbar.dart';
 import 'package:dating_app/widgets/processing.dart';
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:dating_app/widgets/default_button.dart';
-import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:chips_choice/chips_choice.dart';
-
 import '../AppQustions/dating_question.dart';
 
 class Introscreen extends StatefulWidget {
   final   Map<String ,dynamic>   userdata;
-
   const Introscreen({Key? key, required this.userdata,}) : super(key: key);
-
   @override
   createState() => _Intro_up_screenState();
 }
@@ -33,25 +24,17 @@ class _Intro_up_screenState extends State<Introscreen> {
   int tag = 1;
   int taggender = 1;
   List<int> tagm = [];
-
   // multiple choice value
   List<String> tags = [];
-
   // list of string options
-
-
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
   late PageController _pageController;
   int currentIndex = 0;
-
   /// User Birthday info
  
  
-
   // End
-
   String? _selectedGender;
   List<String> _genders = ['Male', 'Female'];
   late AppLocalizations _i18n;
@@ -286,7 +269,7 @@ widget.userdata;
 
                           ListView.builder(
                               shrinkWrap: true, scrollDirection: Axis.vertical,
-                              itemCount: datindQustions().Qheight.length,
+                              itemCount: Qtns().Qheight.length,
                               itemBuilder: (context, index) {
                                 return Center(child: Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -297,7 +280,7 @@ widget.userdata;
                                             onTap: () {
                                               setState(() {
                                                 slectedIndex = index;
-                                                userHeight=datindQustions().Qheight[index];
+                                                userHeight=Qtns().Qheight[index];
                                               });
                                             },
                                             trailing: slectedIndex == index ? Icon(
@@ -312,7 +295,7 @@ widget.userdata;
 
 
                                             title:  Text(
-                                              '${datindQustions()
+                                              '${Qtns()
                                                   .Qheight[index]}',style: TextStyle(color: Colors.black),)),
                                       ),
 
@@ -358,7 +341,7 @@ widget.userdata;
 
                           ListView.builder(
                               shrinkWrap: true, scrollDirection: Axis.vertical,
-                              itemCount: datindQustions().QMaritalS.length,
+                              itemCount: Qtns().QMaritalS.length,
                               itemBuilder: (context, index) {
                                 return Center(child: Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -369,7 +352,7 @@ widget.userdata;
                                             onTap: () {
                                               setState(() {
                                                 slectedIndex = index;
-                                                userMarriedSatus=datindQustions().QMaritalS[index];
+                                                userMarriedSatus=Qtns().QMaritalS[index];
                                               });
                                             },
                                             trailing: slectedIndex == index ? Icon(
@@ -384,7 +367,7 @@ widget.userdata;
 
 
                                             title:  Text(
-                                              '${datindQustions()
+                                              '${Qtns()
                                                   .QMaritalS[index]}',style: TextStyle(color: Colors.black),)),
                                       ),
                                       SizedBox(height: 5,),
@@ -427,7 +410,7 @@ widget.userdata;
 
                           ListView.builder(
                               shrinkWrap: true, scrollDirection: Axis.vertical,
-                              itemCount: datindQustions().QMaritalS.length,
+                              itemCount: Qtns().QMaritalS.length,
                               itemBuilder: (context, index) {
                                 return Center(
 
@@ -438,7 +421,7 @@ widget.userdata;
                                             onTap: () {
                                               setState(() {
                                                 slectedIndex = index;
-                                                usersmoke=datindQustions().QMaritalS[index];
+                                                usersmoke=Qtns().QMaritalS[index];
                                               });
                                             },
                                             trailing: slectedIndex == index ? Icon(
@@ -453,7 +436,7 @@ widget.userdata;
 
 
                                             title:  Text(
-                                              '${datindQustions()
+                                              '${Qtns()
                                                   .QMaritalS[index]}',style: slectedIndex == index ?TextStyle(color:   APP_PRIMARY_COLOR,):TextStyle(color:
                                             Colors.black,),
                                             )),
@@ -495,7 +478,7 @@ widget.userdata;
 
                           ListView.builder(
                               shrinkWrap: true, scrollDirection: Axis.vertical,
-                              itemCount: datindQustions().QMaritalS.length,
+                              itemCount: Qtns().QMaritalS.length,
                               itemBuilder: (context, index) {
                                 return Center(child: Padding(
                                   padding: const EdgeInsets.all(0.0),
@@ -506,7 +489,7 @@ widget.userdata;
                                             onTap: () {
                                               setState(() {
                                                 slectedIndex = index;
-                                               userdrink= datindQustions().QMaritalS[index];
+                                               userdrink= Qtns().QMaritalS[index];
                                               });
                                             },
                                             trailing: slectedIndex == index ? Icon(
@@ -521,7 +504,7 @@ widget.userdata;
 
 
                                             title:  Text(
-                                              '${datindQustions()
+                                              '${Qtns()
                                                   .QMaritalS[index]}',style: slectedIndex == index ?TextStyle(color: APP_PRIMARY_COLOR):TextStyle(color: Colors.black),)),
                                       ),
                                       SizedBox(height: 8,),
@@ -561,7 +544,7 @@ widget.userdata;
 
                           ListView.builder(
                               shrinkWrap: true, scrollDirection: Axis.vertical,
-                              itemCount: datindQustions().QMaritalS.length,
+                              itemCount: Qtns().QMaritalS.length,
                               itemBuilder: (context, index) {
                                 return Center(child: Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -569,7 +552,7 @@ widget.userdata;
                                       onTap: () {
                                         setState(() {
                                           slectedIndex = index;
-                                          userLanguage= [datindQustions().QMaritalS[index]];
+                                          userLanguage= [Qtns().QMaritalS[index]];
                                         });
                                       },
                                       trailing: slectedIndex == index ? Icon(
@@ -584,7 +567,7 @@ widget.userdata;
 
 
                                       title:  Text(
-                                        '${datindQustions()
+                                        '${Qtns()
                                             .QMaritalS[index]}',style: slectedIndex == index ?TextStyle(color:   APP_PRIMARY_COLOR,):TextStyle(color:
                                       Colors.black,),)),),
                                 );
@@ -620,7 +603,7 @@ widget.userdata;
 
                           ListView.builder(
                               shrinkWrap: true, scrollDirection: Axis.vertical,
-                              itemCount: datindQustions().QMaritalS.length,
+                              itemCount: Qtns().QMaritalS.length,
                               itemBuilder: (context, index) {
                                 return Center(child: Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -628,7 +611,7 @@ widget.userdata;
                                       onTap: () {
                                         setState(() {
                                           slectedIndex = index;
-                                          userEducation= datindQustions().QMaritalS[index];
+                                          userEducation= Qtns().QMaritalS[index];
                                         });
                                       },
                                       trailing: slectedIndex == index ? Icon(
@@ -643,7 +626,7 @@ widget.userdata;
 
 
                                       title:  Text(
-                                        '${datindQustions()
+                                        '${Qtns()
                                             .QMaritalS[index]}',style: slectedIndex == index ?TextStyle(color: APP_PRIMARY_COLOR):TextStyle(color: Colors.black),)),),
                                 );
                               })

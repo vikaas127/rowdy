@@ -22,7 +22,6 @@ class NotificationsScreen extends StatelessWidget {
     /// Initialization
     final i18n = AppLocalizations.of(context);
     final pr = ProgressDialog(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(i18n.translate("notifications")),

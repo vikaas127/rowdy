@@ -3,6 +3,8 @@ import 'package:dating_app/screens/AppQustions/dating_question.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/user_model.dart';
+
 class Caste extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
@@ -50,7 +52,7 @@ class Caste_state extends State<Caste>{
           ),
         ),
         ListView.builder(shrinkWrap: true,scrollDirection: Axis.vertical,
-            itemCount:datindQustions().QCaste.length ,
+            itemCount:Qtns().QCaste.length ,
             itemBuilder: (context,index){
               return Center(child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -60,7 +62,12 @@ class Caste_state extends State<Caste>{
                       child: ListTile(onTap: (){
                         setState(() {
                           slectedIndex =index;
+
+                          UserModel().updateUserData(
+                              userId: UserModel().user.userId,data:
+                          {USER_CASTE:Qtns().QCaste[index] });
                         });
+                        print(Qtns().QCaste[index].toString());
                       },
                           trailing:slectedIndex==index?Icon(Icons.check):null ,
                           textColor: Colors.white,
@@ -69,7 +76,7 @@ class Caste_state extends State<Caste>{
                           selectedColor: Colors.amber,
 
 
-                          title:  Text('${datindQustions().QCaste[index]}')),
+                          title:  Text('${Qtns().QCaste[index]}')),
                     ),
 
                     SizedBox(height: 8,),

@@ -9,6 +9,8 @@ import 'package:dating_app/widgets/user_gallery.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+import 'filter/Advancefilter_screen.dart';
+import 'filter/Bottomsheet.dart';
 import 'filter/Caste.dart';
 import 'filter/Religion.dart';
 
@@ -18,6 +20,13 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  List<String> marriedstatus =["Single","Single with kids","Divorced","Divorced with kids","Widowed","Widowed with kids","Seperated","Seperated with kids"];
+  List<String> Smoke =["yes","No","Planning to Quit","Occasionally "];
+  List<String> Education =["Graduate degree","UnderGraduate degree","In college","In grad school","High school","Vocational school","I'm not study","Quit studies  "];
+  List<String> Drink =["yes","No","Planning to Quit","Occasionally "];
+  List<String> Language =["Hindi","English","Telgu","Tamil","Urdhu","Bangali"];
+  List<String> Rowdybaby =["A Relationship or date"," To get Marry","I'm not sure","Something Casul"];
+
   // Variables
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -147,7 +156,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold
                       ),),
-                      subtitle: Text('Choudhary', textAlign: TextAlign.start, style: TextStyle(
+                      subtitle: Text('${UserModel().user.userCaste}', textAlign: TextAlign.start, style: TextStyle(
+                          color:  Color(0xffDE2657),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400
+                      ),), ),
+                  ),
+                ),
+                Divider(),
+                Container(
+                  child: Center(
+                    child: ListTile(onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Religion()));
+                    },
+                      trailing: Icon(Icons.arrow_forward_ios,color: Colors.grey,),
+                      title: Text("What 's your Religion?", textAlign: TextAlign.start, style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold
+                      ),),
+                      subtitle: Text('${UserModel().user.userReligion}', textAlign: TextAlign.start, style: TextStyle(
                           color:  Color(0xffDE2657),
                           fontSize: 12,
                           fontWeight: FontWeight.w400
@@ -168,7 +197,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold
                       ),),
-                      subtitle: Text('Marriage', textAlign: TextAlign.start, style: TextStyle(
+                      subtitle: Text('${UserModel().user.userReligion}', textAlign: TextAlign.start, style: TextStyle(
                           color: Color(0xffDE2657),
                           fontSize: 12,
                           fontWeight: FontWeight.w400
@@ -201,8 +230,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 Container(
                   child: Center(
                     child: ListTile(onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Caste()));
+
+                      showModalBottomSheet<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return BottomSheetSwitch(title: "Married Status",
+                            list: marriedstatus,
+                            switchValue: Status.MaritalStatus,
+
+                          );
+                        },
+                      );
                     },
                       trailing: Icon(Icons.arrow_forward_ios,color: Colors.grey,),
                       title: Text('Marital Status', textAlign: TextAlign.start, style: TextStyle(
@@ -210,7 +248,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold
                       ),),
-                      subtitle: Text('Single', textAlign: TextAlign.start, style: TextStyle(
+                      subtitle: Text('${UserModel().user.userMarriedsatus}', textAlign: TextAlign.start, style: TextStyle(
                           color:  Color(0xffDE2657),
                           fontSize: 12,
                           fontWeight: FontWeight.w400
@@ -222,8 +260,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 Container(
                   child: Center(
                     child: ListTile(onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Religion()));
+                      showModalBottomSheet<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return BottomSheetSwitch(title: "Smoke",
+                            list: Smoke,
+                            switchValue: Status.Smoke,
+
+                          );
+                        },
+                      );
                     },
                       trailing: Icon(Icons.arrow_forward_ios,color: Colors.grey,),
                       title: Text('Do you Smoke?', textAlign: TextAlign.start, style: TextStyle(
@@ -231,7 +277,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold
                       ),),
-                      subtitle: Text('Yes', textAlign: TextAlign.start, style: TextStyle(
+                      subtitle: Text('${UserModel().user.userSmoke}', textAlign: TextAlign.start, style: TextStyle(
                           color: Color(0xffDE2657),
                           fontSize: 12,
                           fontWeight: FontWeight.w400
@@ -242,8 +288,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 Container(
                   child: Center(
                     child: ListTile(onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Caste()));
+                      showModalBottomSheet<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return BottomSheetSwitch(title: "Drink",
+                            list: Drink,
+                            switchValue: Status.Drink,
+
+                          );
+                        },
+                      );
                     },
                       trailing: Icon(Icons.arrow_forward_ios,color: Colors.grey,),
                       title: Text('Do you drink?', textAlign: TextAlign.start, style: TextStyle(
@@ -251,7 +305,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold
                       ),),
-                      subtitle: Text('Yes', textAlign: TextAlign.start, style: TextStyle(
+                      subtitle: Text('${UserModel().user.userDrink}', textAlign: TextAlign.start, style: TextStyle(
                           color:  Color(0xffDE2657),
                           fontSize: 12,
                           fontWeight: FontWeight.w400
@@ -263,8 +317,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 Container(
                   child: Center(
                     child: ListTile(onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Religion()));
+                      showModalBottomSheet<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return BottomSheetSwitch(title: "Langague Speaking",
+                            list: Language,
+                            switchValue: Status.Language,
+
+                          );
+                        },
+                      );
                     },
                       trailing: Icon(Icons.arrow_forward_ios,color: Colors.grey,),
                       title: Text('Language speak?', textAlign: TextAlign.start, style: TextStyle(
@@ -272,7 +334,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold
                       ),),
-                      subtitle: Text('Telugu,English', textAlign: TextAlign.start, style: TextStyle(
+                      subtitle: Text('${UserModel().user.userLang.toString()}', textAlign: TextAlign.start, style: TextStyle(
                           color: Color(0xffDE2657),
                           fontSize: 12,
                           fontWeight: FontWeight.w400
@@ -284,8 +346,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 Container(
                   child: Center(
                     child: ListTile(onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Religion()));
+                      showModalBottomSheet<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return BottomSheetSwitch(title: "Education",
+                            list: Education,
+                            switchValue: Status.Education,
+
+                          );
+                        },
+                      );
                     },
                       trailing: Icon(Icons.arrow_forward_ios,color: Colors.grey,),
                       title: Text("What's your education? ", textAlign: TextAlign.start, style: TextStyle(
@@ -293,7 +363,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold
                       ),),
-                      subtitle: Text('Telugu,English', textAlign: TextAlign.start, style: TextStyle(
+                      subtitle: Text('${UserModel().user.userEducation}', textAlign: TextAlign.start, style: TextStyle(
                           color: Color(0xffDE2657),
                           fontSize: 12,
                           fontWeight: FontWeight.w400
@@ -314,7 +384,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold
                       ),),
-                      subtitle: Text('Software Engineer', textAlign: TextAlign.start, style: TextStyle(
+                      subtitle: Text('${UserModel().user.userJobTitle}', textAlign: TextAlign.start, style: TextStyle(
                           color: Color(0xffDE2657),
                           fontSize: 12,
                           fontWeight: FontWeight.w400
@@ -335,7 +405,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold
                       ),),
-                      subtitle: Text('Hello world, i am writing', textAlign: TextAlign.start, style: TextStyle(
+                      subtitle: Text('${UserModel().user.userBio}', textAlign: TextAlign.start, style: TextStyle(
                           color: Color(0xffDE2657),
                           fontSize: 12,
                           fontWeight: FontWeight.w400

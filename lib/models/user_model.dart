@@ -82,7 +82,16 @@ class UserModel extends Model {
       {required String userId, required Map<String, dynamic> data}) async {
     // Update user data
     _firestore.collection(C_USERS).doc(userId).update(data);
+    print(data.toString());
   }
+  //update user language
+  Future<void> updateUserlangData(
+      {required String userId, required Map<String, dynamic> data}) async {
+    // Update user data
+    _firestore.collection(C_USERS).doc(userId).update(data);
+    print(data.toString());
+  }
+//
 
   /// Update user device token and
   /// subscribe user to firebase messaging topic for push notifications
@@ -279,7 +288,7 @@ class UserModel extends Model {
   /// Create the User Account method
   ///
   Future<void> signUp({
-    required File userPhotoFile,
+    required List<File> userPhotoFile,
     required String userFullName,
     required String userGender,
     required int userBirthDay,
@@ -329,12 +338,14 @@ class UserModel extends Model {
 
     /// Get user device token for push notifications
     final userDeviceToken = await _fcm.getToken();
+final List<String> _imageurls= await uploadFiles(userPhotoFile,'uploads/users/profiles',getFirebaseUser!.uid
 
+);
     /// Upload user profile image
-    final String imageProfileUrl = await uploadFile(
+  /*  final String imageProfileUrl = await uploadFile(
         file: userPhotoFile,
         path: 'uploads/users/profiles',
-        userId: getFirebaseUser!.uid);
+        userId: getFirebaseUser!.uid);*/
 
     /// Save user information in database
     await _firestore
@@ -351,7 +362,7 @@ class UserModel extends Model {
       USER_LANGUAGE:userLanguage,
      USER_EDUCATION :userEducation,
       USER_ID: this.getFirebaseUser!.uid,
-      USER_PROFILE_PHOTO: imageProfileUrl,
+      USER_PROFILE_PHOTO: _imageurls,
       USER_FULLNAME: userFullName,
       USER_GENDER: userGender,
       USER_BIRTH_DAY: userBirthDay,
@@ -441,8 +452,7 @@ class UserModel extends Model {
       TIMESTAMP: FieldValue.serverTimestamp()
     });
     // Update flagged profile status
-    await this
-        .updateUserData(userId: flaggedUserId, data: {USER_STATUS: 'flagged'});
+    await this.updateUserData(userId: flaggedUserId, data: {USER_STATUS: 'flagged'});
   }
 
   /// Update User location info
@@ -563,7 +573,24 @@ class UserModel extends Model {
     // return file link
     return url;
   }
+  Future<List<String>> uploadFiles(
 
+   List<File> _images,
+   String path,
+   String userId,) async {
+    List<String> imagesUrls = [];
+
+    _images.forEach((_image) async {
+      Reference storageReference =
+      FirebaseStorage.instance.ref().child('posts/${_image.path}');
+      UploadTask uploadTask = storageReference.putFile(_image);
+      await uploadTask.whenComplete(() => print("null"));
+
+      imagesUrls.add(await storageReference.getDownloadURL());
+    });
+
+    return imagesUrls;
+  }
   /// Add / Update profile image and gallery
   Future<void> updateProfileImage(
       {required File imageFile,

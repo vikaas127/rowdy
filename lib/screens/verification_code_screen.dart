@@ -27,7 +27,6 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
   // Variables
   late AppLocalizations _i18n;
   late ProgressDialog _pr;
-
   /// Navigate to next page
   void _nextScreen(screen) {
     // Go to next page route
@@ -41,7 +40,6 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
     // Navigate
     _nextScreen(EnableLocationScreen(action: action));
   }
-
   /// logic to validate otp return [null] when success else error [String]
   Future<String?> validateOtp(String otp) async {
     /// Handle entered verification code here
@@ -89,7 +87,6 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
 
     return null;
   }
-
   @override
   Widget build(BuildContext context) {
     /// Initialization

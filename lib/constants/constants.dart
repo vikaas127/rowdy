@@ -82,7 +82,10 @@ const String ADMOB_INTERSTITIAL_AD_ID = "admob_interstitial_ad_id";
 
 /// DATABASE FIELDS FOR USER COLLECTION  ///
 ///
+/// user_max_height
 const String USER_CASTE = "user_caste";
+const String USER_MAX_HEIGHT = "user_max_height";
+const String USER_MIN_HEIGHT = "user_min_height";
 const String USER_LANGUAGE = "user_language";
 const String USER_RELIGION = "user_religion";
 const String USER_HEIGHT = "user_height";

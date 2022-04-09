@@ -32,15 +32,10 @@ class ProfileTab extends StatelessWidget {
             ProfileStatisticsCard(),
             Divider(height: 0),
             SizedBox(height: 10),
-
             /// Show VIP dialog
             VipAccountCard(),
-
-
-            
             /// Delete Account Button
             DeleteAccountButton(),
-
             SizedBox(height: 25),
 
           ],

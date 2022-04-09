@@ -24,8 +24,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   // Variables
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   late RangeValues _selectedAgeRange;
+  late RangeValues _selectedheightRange;
   late RangeLabels _selectedAgeRangeLabels;
+  late RangeLabels _selectedheightRangeLabels;
   late double _selectedMaxDistance;
+  late String Castedata;
   bool _hideProfile = false;
   late AppLocalizations _i18n;
 
@@ -37,11 +40,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(() {
       // Get user max distance
       _selectedMaxDistance = _userSettings[USER_MAX_DISTANCE].toDouble();
+      //Castedata = _userSettings['Caste'];
 
       // Get age range
       final double minAge = _userSettings[USER_MIN_AGE].toDouble();
       final double maxAge = _userSettings[USER_MAX_AGE].toDouble();
-
+      final double minh = _userSettings[USER_MIN_HEIGHT].toDouble();
+      final double maxh = _userSettings[USER_MAX_HEIGHT].toDouble();
+      _selectedheightRange = new RangeValues(minh, maxh);
+      _selectedheightRangeLabels = new RangeLabels('$minh', '$maxh');
       // Set range values
       _selectedAgeRange = new RangeValues(minAge, maxAge);
       _selectedAgeRangeLabels = new RangeLabels('$minAge', '$maxAge');
@@ -308,7 +315,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ],
                     )),
                 // height
-                Container(
+               Container(
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -321,45 +328,45 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),),
                       subtitle: Text(""),
                       trailing: Text(
-                          "${_selectedAgeRange.start.toStringAsFixed(0)} - "
-                          "${_selectedAgeRange.end.toStringAsFixed(0)}",
+                          "${_selectedheightRange.start.toStringAsFixed(0)} - "
+                          "${_selectedheightRange.end.toStringAsFixed(0)}",
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold)),
                     ),
                     RangeSlider(
                         activeColor: Theme.of(context).primaryColor,
-                        values: _selectedAgeRange,
-                        labels: _selectedAgeRangeLabels,
+                        values: _selectedheightRange,
+                        labels: _selectedheightRangeLabels,
                         divisions: 100,
-                        min: 18,
-                        max: 100,
+                        min: 4,
+                        max: 7,
                         onChanged: (newRange) {
                           // Update state
                           setState(() {
-                            _selectedAgeRange = newRange;
-                            _selectedAgeRangeLabels = RangeLabels(
+                            _selectedheightRange = newRange;
+                            _selectedheightRangeLabels = RangeLabels(
                                 newRange.start.toStringAsFixed(0),
                                 newRange.end.toStringAsFixed(0));
                           });
-                          print('_selectedAgeRange: $_selectedAgeRange');
+                          print('_selectedAgeRange: $_selectedheightRange');
                         },
                         onChangeEnd: (endValues) {
                           /// Update age range
                           ///
                           /// Get start value
-                          final int minAge =
+                          final int minH =
                               int.parse(endValues.start.toStringAsFixed(0));
 
                           /// Get end value
-                          final int maxAge =
+                          final int maxH =
                               int.parse(endValues.end.toStringAsFixed(0));
 
                           // Update age range
                           UserModel().updateUserData(
                               userId: UserModel().user.userId,
                               data: {
-                                '$USER_SETTINGS.$USER_MIN_AGE': minAge,
-                                '$USER_SETTINGS.$USER_MAX_AGE': maxAge,
+                                '$USER_SETTINGS.$USER_MIN_HEIGHT': minH,
+                                '$USER_SETTINGS.$USER_MAX_HEIGHT': maxH,
                               }).then((_) {
                             print('Age range updated');
                           });

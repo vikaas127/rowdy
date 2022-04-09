@@ -33,7 +33,7 @@ class LinearProgressIndicatorAppState extends State<LinearProgressIndicatorApp> 
     );
   }
   // this function updates the progress value
-  void _updateProgress() {
+  void updateProgress() {
     const oneSec = const Duration(seconds: 1);
     new Timer.periodic(oneSec, (Timer t) {
       setState(() {
