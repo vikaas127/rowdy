@@ -77,14 +77,14 @@ widget.userdata;
   Widget _widget(Widget ab) {
     return ab;
   }
- String? userMarriedSatus;
+ String? userMarriedSatus= Qtns().QMaritalS[0];
 
 
   List<String>?  userLanguage=[];
-  String? userEducation;
-  String? userHeight;
-  String? usersmoke;
-  String? userdrink;
+  String? userEducation=Qtns().QIntersetd[0];
+  String? userHeight=Qtns().Qheight[0];
+  String? usersmoke=Qtns().QMaritalS[0];
+  String? userdrink=Qtns().QMaritalS[0];
 
   @override
   void dispose() {
@@ -313,8 +313,6 @@ widget.userdata;
 
                       ),
                     )),
-
-
                     //who are you interseted in ?
                     Container(child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 18.0),
@@ -383,7 +381,6 @@ widget.userdata;
                       ),
                     )),
 //caste
-
                     //Do you Smoke  ?
                     Container(child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 18.0),

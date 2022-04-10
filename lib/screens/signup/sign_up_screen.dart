@@ -22,6 +22,9 @@ import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_pic
 import 'package:scoped_model/scoped_model.dart';
 import 'package:chips_choice/chips_choice.dart';
 
+import '../../dialogs/progress_dialog.dart';
+import '../../dialogs/vip_dialog.dart';
+import '../../widgets/gallery_image_card.dart';
 import '../../widgets/user_gallery.dart';
 import '../AppQustions/dating_question.dart';
 import 'signintro_up_screen.dart';
@@ -36,19 +39,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
   int tag = 1;
   int taggender = 1;
   List<int> tagm = [];
+
   // multiple choice value
   List<String> tags = [];
+
   // list of string options
   TextEditingController _Castesearch = TextEditingController();
   List<String> searchResultCaste = [];
   TextEditingController _Religionsearch = TextEditingController();
   List<String> searchResultReligion = [];
-  final _formKey = GlobalKey<FormState>();
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _nameController = TextEditingController();
   final _schoolController = TextEditingController();
-  final _jobController = TextEditingController();
-  final _bioController = TextEditingController();
+
   late PageController _pageController;
   int currentIndex = 0;
 
@@ -59,16 +63,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String? userURBB = Qtns().QRowdybaby[0];
   int _userBirthMonth = 0;
   int _userBirthYear = DateTime.now().year;
+
   // End
   DateTime _initialDateTime = DateTime.now();
   String? _birthday;
-  File? _imageFile;
+  File? _imageFile ;
   bool _agreeTerms = false;
   String? _selectedGender;
   List<String> _genders = ['Male', 'Female'];
   late AppLocalizations _i18n;
   int slectedIndex = 0;
-
 
   /// Get image from camera / gallery
   void _getImage(BuildContext context) async {
@@ -78,7 +82,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               onImageSelected: (image) {
                 if (image != null) {
                   setState(() {
-                    _imageFile = image;
+                    print(image);
+                    image!=_imageFile;
+                    _imageFile!=image;
+                    print(_imageFile);
                   });
                   // close modal
                   Navigator.of(context).pop();
@@ -86,6 +93,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               },
             ));
   }
+
   void _updateUserBithdayInfo(DateTime date) {
     setState(() {
       // Update the inicial date
@@ -98,8 +106,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _userBirthYear = date.year;
     });
   }
+
   late List<String> _choices;
   late int _choiceIndex;
+
   /// Display date picker.
   void _showDatePicker() {
     DatePicker.showDatePicker(
@@ -132,8 +142,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       },
     );
   }
+
   late bool _loading;
   late double _progressValue;
+
   // Get Date time picker app locale
   DateTimePickerLocale _getDatePickerLocale() {
     // Inicial value
@@ -153,15 +165,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     return _locale;
   }
+
   bool reverse = false;
+
   @override
   void initState() {
     _loading = false;
-    _progressValue = 0.2;
+    _progressValue = 0.1;
     _selectedGender = _genders[0];
     _pageController = PageController(initialPage: 0);
     super.initState();
   }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -170,26 +185,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _i18n = AppLocalizations.of(context);
     _birthday = "age";
   }
+
   //update ptrogress
   void updateProgress() {
     const oneSec = const Duration(seconds: 1);
     new Timer.periodic(oneSec, (Timer t) {
-      setState(() {
-        _progressValue += 0.1;
-        // we "finish" downloading here
-        if (_progressValue.toStringAsFixed(1) == '1.0') {
-          _loading = false;
-          t.cancel();
-          return;
-        }
-      });
+      _progressValue += 0.005;
+      // we "finish" downloading here
+      if (_progressValue.toStringAsFixed(1) == '1.0') {
+        _loading = false;
+        t.cancel();
+        return;
+      }
     });
   }
+
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -252,6 +268,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       _pageController.animateToPage(currentIndex + 1,
                           duration: Duration(milliseconds: 500),
                           curve: Curves.linear);
+                      updateProgress();
                     },
                     splashColor: Colors.blue[50],
                     child: Container(
@@ -279,7 +296,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       MaterialPageRoute(
                           builder: (context) => Introscreen(
                                 userdata: {
-                                  "userPhotoFile": _imageFile!,
+                                  "userPhotoFile": _imageFile??File("")!,
                                   "userFullName": _nameController.text.trim(),
                                   "userGender": _selectedGender!,
                                   "userBirthDay": _userBirthDay,
@@ -438,7 +455,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       });
                                     },
                                     trailing: slectedIndex == index
-                                        ? Icon(Icons.check)
+                                        ? Container(decoration: BoxDecoration(color: Colors.amber,
+                                      border: Border.all(color: Colors.amber,
+                                          width: 0.0
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(15.0) //                 <--- border radius here
+                                      ),
+                                    ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Icon(Icons.check,color: Colors.white,),
+                                        ))
                                         : null,
                                     textColor: Colors.white,
                                     selected:
@@ -471,7 +499,90 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 )),
                 //photo
-                UserGallerysign(),
+                GridView.builder(
+                    physics: ScrollPhysics(),
+                    itemCount: 1,
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3),
+                    itemBuilder: (context, index) {
+                      /// Local variables
+                      String? imageUrl;
+                      BoxFit boxFit = BoxFit.none;
+
+                      dynamic imageProvider =
+                          AssetImage("assets/images/camera.png",);
+                      if (_imageFile!= null) {
+                        imageProvider = FileImage(_imageFile!);
+                      }
+                      /* if (!UserModel().userIsVip && index >6 ) {
+            imageProvider = AssetImage("assets/images/crow_badge_small.png");
+            }
+
+            /// Check gallery
+            if (UserModel().user.userGallery != null) {
+            // Check image index
+            if (UserModel().user.userGallery!['image_$index'] != null) {
+            // Get image link
+            imageUrl = UserModel().user.userGallery!['image_$index'];
+            // Get image provider
+            imageProvider =
+            NetworkImage(UserModel().user.userGallery!['image_$index']);
+            // Set boxFit
+            boxFit = BoxFit.cover;
+            }
+            }*/
+
+                      /// Show image widget
+                      return GestureDetector(
+                        child: Stack(
+                          children: [
+                            Card(
+                              clipBehavior: Clip.antiAlias,
+                              //  shape: defaultCardBorder(),
+                              color: Colors.grey[300],
+                              child: Center(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        fit: boxFit, image: imageProvider),
+                                    color: Colors.white.withAlpha(70),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              child: IconButton(
+                                  icon: CircleAvatar(
+                                    radius: 15,
+                                    backgroundColor:Colors.amber,
+                                    child: Icon(
+                                        imageUrl == null
+                                            ? Icons.add
+                                            : Icons.close,
+                                        color: Colors.white),
+                                  ),
+                                  onPressed: () {
+                                    /// Check image url to exe action
+                                    if (imageUrl == null) {
+                                      /// Add or update image
+                                      _getImage(context);
+                                    } else {
+                                      /// Delete image from gallery
+                                      _deleteGalleryImage(context);
+                                    }
+                                  }),
+                              right: 8,
+                              bottom: 5,
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          /// Add or update image
+                          _selectImage(context);
+                        },
+                      );
+                    }),
                 //birthday
 
                 Container(
@@ -548,7 +659,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     });
                                   },
                                   trailing: slectedIndex == index
-                                      ? Icon(Icons.check)
+                                      ?Container(decoration: BoxDecoration(color: Colors.amber,
+                                    border: Border.all(color: Colors.amber,
+                                        width: 0.0
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(15.0) //                 <--- border radius here
+                                    ),
+                                  ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: Icon(Icons.check,color: Colors.white,),
+                                      ))
                                       : null,
                                   textColor: Colors.white,
                                   selected:
@@ -573,9 +695,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         padding: const EdgeInsets.all(18.0),
                         child: Text(
                           "What's your caste?",
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           style: TextStyle(
-                              fontSize: 35,
+                              fontSize: 30,
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
                         ),
@@ -622,7 +744,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           child: Column(
                                             children: [
                                               Container(
-                                                height: 25,
+                                                height: 35,
                                                 child: ListTile(
                                                     onTap: () {
                                                       setState(() {
@@ -634,7 +756,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                     },
                                                     trailing:
                                                         slectedIndex == index
-                                                            ? Icon(Icons.check)
+                                                            ? Container(decoration: BoxDecoration(color: Colors.amber,
+                                                          border: Border.all(color: Colors.amber,
+                                                              width: 0.0
+                                                          ),
+                                                          borderRadius: BorderRadius.all(
+                                                              Radius.circular(15.0) //                 <--- border radius here
+                                                          ),
+                                                        ),
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.all(2.0),
+                                                              child: Icon(Icons.check,color: Colors.white,),
+                                                            ))
                                                             : null,
                                                     textColor: Colors.white,
                                                     selected:
@@ -645,9 +778,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                     title: Text(
                                                         '${searchResultCaste[index]}')),
                                               ),
-                                              SizedBox(
-                                                height: 8,
-                                              ),
+
                                               Divider(
                                                 thickness: 0.2,
                                                 color: Colors.white,
@@ -680,7 +811,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           child: Column(
                                             children: [
                                               Container(
-                                                height: 25,
+                                                height: 35,
                                                 child: ListTile(
                                                     onTap: () {
                                                       setState(() {
@@ -691,7 +822,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                     },
                                                     trailing:
                                                         slectedIndex == index
-                                                            ? Icon(Icons.check)
+                                                            ? Container(decoration: BoxDecoration(color: Colors.amber,
+                                                          border: Border.all(color: Colors.amber,
+                                                              width: 0.0
+                                                          ),
+                                                          borderRadius: BorderRadius.all(
+                                                              Radius.circular(15.0) //                 <--- border radius here
+                                                          ),
+                                                        ),
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.all(2.0),
+                                                              child: Icon(Icons.check,color: Colors.white,),
+                                                            ))
                                                             : null,
                                                     textColor: Colors.white,
                                                     selected:
@@ -702,9 +844,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                     title: Text(
                                                         '${Qtns().QCaste[index]}')),
                                               ),
-                                              SizedBox(
-                                                height: 8,
-                                              ),
+
                                               Divider(
                                                 thickness: 0.2,
                                                 color: Colors.white,
@@ -792,7 +932,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Container(
-                                                height: 25,
+                                                height: 35,
                                                 child: ListTile(
                                                     onTap: () {
                                                       setState(() {
@@ -804,7 +944,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                     },
                                                     trailing:
                                                         slectedIndex == index
-                                                            ? Icon(Icons.check)
+                                                            ? Container(decoration: BoxDecoration(color: Colors.amber,
+                                                          border: Border.all(color: Colors.amber,
+                                                              width: 0.0
+                                                          ),
+                                                          borderRadius: BorderRadius.all(
+                                                              Radius.circular(15.0) //                 <--- border radius here
+                                                          ),
+                                                        ),
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.all(2.0),
+                                                              child: Icon(Icons.check,color: Colors.white,),
+                                                            ))
                                                             : null,
                                                     textColor: Colors.white,
                                                     selected:
@@ -818,9 +969,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                           TextAlign.start,
                                                     )),
                                               ),
-                                              SizedBox(
-                                                height: 8,
-                                              ),
+
                                               Divider(
                                                 thickness: 0.2,
                                                 color: Colors.white,
@@ -855,7 +1004,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Container(
-                                                height: 25,
+                                                height: 35,
                                                 child: ListTile(
                                                     onTap: () {
                                                       setState(() {
@@ -866,7 +1015,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                     },
                                                     trailing:
                                                         slectedIndex == index
-                                                            ? Icon(Icons.check)
+                                                            ? Container(decoration: BoxDecoration(color: Colors.amber,
+                                                          border: Border.all(color: Colors.amber,
+                                                              width: 0.0
+                                                          ),
+                                                          borderRadius: BorderRadius.all(
+                                                              Radius.circular(15.0) //                 <--- border radius here
+                                                          ),
+                                                        ),
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.all(2.0),
+                                                              child: Icon(Icons.check,color: Colors.white,),
+                                                            ))
                                                             : null,
                                                     textColor: Colors.white,
                                                     selected:
@@ -880,9 +1040,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                           TextAlign.start,
                                                     )),
                                               ),
-                                              SizedBox(
-                                                height: 8,
-                                              ),
+
                                               Divider(
                                                 thickness: 0.2,
                                                 color: Colors.white,
@@ -945,7 +1103,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     });
                                   },
                                   trailing: slectedIndex == index
-                                      ? Icon(Icons.check)
+                                      ?  Container(decoration: BoxDecoration(color: Colors.amber,
+                                    border: Border.all(color: Colors.amber,
+                                        width: 0.0
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(15.0) //                 <--- border radius here
+                                    ),
+                                  ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: Icon(Icons.check,color: Colors.white,),
+                                      ))
                                       : null,
                                   textColor: Colors.white,
                                   selected:
@@ -999,7 +1168,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   /// Handle Create account
-
   Widget makePage({image, title, content, reverse = false}) {
     return Container(
       padding: EdgeInsets.only(left: 50, right: 50, bottom: 60),
@@ -1051,5 +1219,58 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
+  void _selectImage(BuildContext context) async {
+    /// Initialization
+    final i18n = AppLocalizations.of(context);
+    final pr = ProgressDialog(context, isDismissible: false);
 
+    /// Check user vip account
+
+    await showModalBottomSheet(
+        context: context,
+        builder: (context) => ImageSourceSheet(
+              onImageSelected: (image) async {
+                if (image != null) {
+                  /// Show progress dialog
+                  pr.show(i18n.translate("processing"));
+
+setState(() {
+    _imageFile=image;
+});
+                  /// Update gallery image
+
+                  // Hide dialog
+                  pr.hide();
+                  // close modal
+                  Navigator.of(context).pop();
+                }
+              },
+            ));
+  }
+
+  /// Delete image from gallery
+  void _deleteGalleryImage(BuildContext context) async {
+    /// Initialization
+    final i18n = AppLocalizations.of(context);
+    final pr = ProgressDialog(context, isDismissible: false);
+
+    /// Check user vip account
+
+    /// Confirm before
+    confirmDialog(context,
+        message: i18n.translate("photo_will_be_deleted"),
+        negativeAction: () => Navigator.of(context).pop(),
+        positiveText: i18n.translate("DELETE"),
+        positiveAction: () async {
+          // Show processing dialog
+          pr.show(i18n.translate("processing"));
+
+          /// Delete image
+
+          // Hide progress dialog
+          pr.hide();
+          // Hide confirm dialog
+          Navigator.of(context).pop();
+        });
+  }
 }

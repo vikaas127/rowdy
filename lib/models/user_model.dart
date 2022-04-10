@@ -288,7 +288,7 @@ class UserModel extends Model {
   /// Create the User Account method
   ///
   Future<void> signUp({
-    required List<File> userPhotoFile,
+    required File userPhotoFile,
     required String userFullName,
     required String userGender,
     required int userBirthDay,
@@ -338,14 +338,12 @@ class UserModel extends Model {
 
     /// Get user device token for push notifications
     final userDeviceToken = await _fcm.getToken();
-final List<String> _imageurls= await uploadFiles(userPhotoFile,'uploads/users/profiles',getFirebaseUser!.uid
-
-);
+/*final List<String> _imageurls= await uploadFiles(userPhotoFile,'uploads/users/profiles',getFirebaseUser!.uid);*/
     /// Upload user profile image
-  /*  final String imageProfileUrl = await uploadFile(
+   final String imageProfileUrl = await uploadFile(
         file: userPhotoFile,
         path: 'uploads/users/profiles',
-        userId: getFirebaseUser!.uid);*/
+        userId: getFirebaseUser!.uid);
 
     /// Save user information in database
     await _firestore
@@ -362,7 +360,7 @@ final List<String> _imageurls= await uploadFiles(userPhotoFile,'uploads/users/pr
       USER_LANGUAGE:userLanguage,
      USER_EDUCATION :userEducation,
       USER_ID: this.getFirebaseUser!.uid,
-      USER_PROFILE_PHOTO: _imageurls,
+      USER_PROFILE_PHOTO: imageProfileUrl,
       USER_FULLNAME: userFullName,
       USER_GENDER: userGender,
       USER_BIRTH_DAY: userBirthDay,

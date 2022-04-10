@@ -44,12 +44,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
         padding: const EdgeInsets.only(right: 8.0),
         child: Row(
           children: <Widget>[
-            Checkbox(
-                activeColor: Theme.of(context).primaryColor,
-                value: _agreeTerms,
-                onChanged: (value) {
-                  _setAgreeTerms(value!);
-                }),
+
             Row(
               children: <Widget>[
                 GestureDetector(
@@ -82,11 +77,11 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[ SizedBox(height: h*0.18),
+              children: <Widget>[ SizedBox(height: h*0.14),
 
                 Text(_i18n.translate("sign_in_with_phone_number"),
-                    textAlign: TextAlign.start, style: TextStyle(fontSize: 35,color: Colors.white)),
-                SizedBox(height:  h*0.12),
+                    textAlign: TextAlign.start, style: TextStyle(fontSize: 32,color: Colors.white)),
+                SizedBox(height:  h*0.08),
 
 
 
@@ -107,7 +102,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                                 child: CountryCodePicker(textStyle: TextStyle(color: Colors.white),
                                     alignLeft: false,
                                     initialSelection: _initialSelection,
-                                    onChanged: (country) {
+                                     onChanged: (country) {
                                       /// Get country code
                                       _phoneCode = country.dialCode!;
                                     }),
@@ -127,8 +122,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                         },
                       ),
                       SizedBox(height:  h*0.05),
-                      _agreePrivacy(),
-                      SizedBox(height:  h*0.05),
+
                       Text(_i18n.translate("OR"),
                           style: TextStyle(fontSize: 15,color: Colors.white)),
                       SizedBox(height:  h*0.05),
@@ -158,9 +152,9 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                                   ),
                                       ),
                                       Text('Login with Facebook', textAlign: TextAlign.center, style: TextStyle(
-                                          color: Colors.blueAccent,
+                                          color: Colors.black,
                                           fontSize: 15,
-                                          fontWeight: FontWeight.bold
+                                          fontWeight: FontWeight.normal
                                       ),),
                                     ],
                                   ),
@@ -182,6 +176,60 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                           },
                         ),*/
                       ),
+                      SizedBox(height: 20,),
+                      SizedBox(
+                        width: double.maxFinite,
+                        child: Center(
+                          child: InkWell(onTap: (){
+                            if (_formKey.currentState!.validate()) {
+                              /// Sign in
+                              _signIn(context);
+                            }
+                          },
+                            child:  Center(
+                              child: Container(height: 45,width: MediaQuery.of(context).size.width*0.73,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  color:  Colors.white,
+                                ),child:   Center(
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                                        child: Image.asset('assets/2.0x/google.png',height: 25,
+
+                                          // color: Colors.red,
+                                          //   semanticsLabel: 'A red up arrow'
+                                        ),
+                                      ),
+                                      Text('Login with Google', textAlign: TextAlign.center, style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.normal
+                                      ),),
+                                    ],
+                                  ),
+                                ),
+
+                              ),
+                            ),
+                          ),
+                        ),
+                        /*  DefaultButton(
+                          child: Text('Login with facebook',
+                              style: TextStyle(fontSize: 18,color: Colors.blueAccent)),
+                          onPressed: () async {
+                            /// Validate form
+                            if (_formKey.currentState!.validate()) {
+                              /// Sign in
+                              _signIn(context);
+                            }
+                          },
+                        ),*/
+                      ),
+                      SizedBox(height: 20,),
+                      _agreePrivacy(),
+                      SizedBox(height:  h*0.05),
 
 
                     ],
