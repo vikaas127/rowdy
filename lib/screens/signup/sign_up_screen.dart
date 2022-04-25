@@ -68,6 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   DateTime _initialDateTime = DateTime.now();
   String? _birthday;
   File? _imageFile ;
+  List<File>? _galleryFile=List<File>.filled(6, File(''));
   bool _agreeTerms = false;
   String? _selectedGender;
   List<String> _genders = ['Male', 'Female'];
@@ -75,24 +76,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   int slectedIndex = 0;
 
   /// Get image from camera / gallery
-  void _getImage(BuildContext context) async {
-    await showModalBottomSheet(
-        context: context,
-        builder: (context) => ImageSourceSheet(
-              onImageSelected: (image) {
-                if (image != null) {
-                  setState(() {
-                    print(image);
-                    image!=_imageFile;
-                    _imageFile!=image;
-                    print(_imageFile);
-                  });
-                  // close modal
-                  Navigator.of(context).pop();
-                }
-              },
-            ));
-  }
+
 
   void _updateUserBithdayInfo(DateTime date) {
     setState(() {
@@ -174,6 +158,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _progressValue = 0.1;
     _selectedGender = _genders[0];
     _pageController = PageController(initialPage: 0);
+
     super.initState();
   }
 
@@ -296,7 +281,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       MaterialPageRoute(
                           builder: (context) => Introscreen(
                                 userdata: {
-                                  "userPhotoFile": _imageFile??File("")!,
+                                  "userPhotoFile": _imageFile??File(""),
                                   "userFullName": _nameController.text.trim(),
                                   "userGender": _selectedGender!,
                                   "userBirthDay": _userBirthDay,
@@ -499,23 +484,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 )),
                 //photo
-                GridView.builder(
-                    physics: ScrollPhysics(),
-                    itemCount: 1,
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3),
-                    itemBuilder: (context, index) {
-                      /// Local variables
-                      String? imageUrl;
-                      BoxFit boxFit = BoxFit.none;
+            Container(
+            child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+            child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            Text(
+            "Photo",
+            textAlign: TextAlign.start,
+            style: TextStyle(
+            fontSize: 32,
+            color: Colors.white,
+            fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 22),  Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: GridView.builder(
+                      physics: ScrollPhysics(),
+                      itemCount: 6,
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(mainAxisSpacing: 15,childAspectRatio: 3/4,
+                          crossAxisCount: 3),
+                      itemBuilder: (context, index) {
+                        /// Local variables
+                        String? imageUrl;
+                        BoxFit boxFit = BoxFit.none;
 
-                      dynamic imageProvider =
-                          AssetImage("assets/images/camera.png",);
-                      if (_imageFile!= null) {
-                        imageProvider = FileImage(_imageFile!);
-                      }
-                      /* if (!UserModel().userIsVip && index >6 ) {
+                        dynamic imageProvider =
+                            AssetImage("assets/images/camera.png",);
+                        if (_imageFile!= null) {
+                        //  imageProvider = FileImage(_imageFile!);
+                        }
+                        /* if (!UserModel().userIsVip && index >6 ) {
             imageProvider = AssetImage("assets/images/crow_badge_small.png");
             }
 
@@ -533,58 +534,58 @@ class _SignUpScreenState extends State<SignUpScreen> {
             }
             }*/
 
-                      /// Show image widget
-                      return GestureDetector(
-                        child: Stack(
-                          children: [
-                            Card(
-                              clipBehavior: Clip.antiAlias,
-                              //  shape: defaultCardBorder(),
-                              color: Colors.grey[300],
-                              child: Center(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        fit: boxFit, image: imageProvider),
-                                    color: Colors.white.withAlpha(70),
+                        /// Show image widget
+                        return GestureDetector(
+                          child: Container(height: 200,
+                            child: Stack(
+                              children: [
+                                Card(
+                                  clipBehavior: Clip.antiAlias,
+                                  //  shape: defaultCardBorder(),
+                                  color: Colors.grey[300],
+                                  child: Center(
+                                    child:_galleryFile![index]!=''?Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            fit: boxFit, image:FileImage(_galleryFile![index])),
+                                        color: Colors.white.withAlpha(70),
+                                      ),
+                                    ):Image.asset("assets/images/camera.png",color: Colors.white,),
                                   ),
                                 ),
-                              ),
+                                Positioned(
+                                  child: IconButton(
+                                      icon: CircleAvatar(
+                                        radius: 15,
+                                        backgroundColor:Colors.amber,
+                                        child: Icon(
+                                            _galleryFile![index]==null ? Icons.add : Icons.close,
+                                            color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        /// Check image url to exe action
+                                        if (_galleryFile![index]== null) {
+                                          /// Add or update image
+                                          _getImage(context,index);
+                                        } else {
+                                          /// Delete image from gallery
+                                          _deleteGalleryImage(context);
+                                        }
+                                      }),
+                                  right: 8,
+                                  bottom: 5,
+                                ),
+                              ],
                             ),
-                            Positioned(
-                              child: IconButton(
-                                  icon: CircleAvatar(
-                                    radius: 15,
-                                    backgroundColor:Colors.amber,
-                                    child: Icon(
-                                        imageUrl == null
-                                            ? Icons.add
-                                            : Icons.close,
-                                        color: Colors.white),
-                                  ),
-                                  onPressed: () {
-                                    /// Check image url to exe action
-                                    if (imageUrl == null) {
-                                      /// Add or update image
-                                      _getImage(context);
-                                    } else {
-                                      /// Delete image from gallery
-                                      _deleteGalleryImage(context);
-                                    }
-                                  }),
-                              right: 8,
-                              bottom: 5,
-                            ),
-                          ],
-                        ),
-                        onTap: () {
-                          /// Add or update image
-                          _selectImage(context);
-                        },
-                      );
-                    }),
+                          ),
+                          onTap: () {
+                            /// Add or update image
+                            _getImage(context,index);
+                          },
+                        );
+                      }),
+                )]))),
                 //birthday
-
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 18.0),
@@ -1136,7 +1137,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
       }),
     );
   }
+  void _getImage(BuildContext context,index) async {
+    await showModalBottomSheet(
+        context: context,
+        builder: (context) => ImageSourceSheet(
+          onImageSelected: (image) {
+            if (image != null) {
+              setState(() {
+                setState(() {
+                  _galleryFile![index]=image;
+                  _imageFile=image;
 
+                  // Navigator.of(context).pop();
+                });
+              });
+              // close modal
+              Navigator.of(context).pop();
+            }
+          },
+        ));
+  }
   onSearchCasteChanged(String text) async {
     searchResultCaste.clear();
     if (text.isEmpty) {
@@ -1151,7 +1171,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     setState(() {});
   }
-
   onSearchReligionChanged(String text) async {
     searchResultReligion.clear();
     if (text.isEmpty) {
@@ -1166,7 +1185,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     setState(() {});
   }
-
   /// Handle Create account
   Widget makePage({image, title, content, reverse = false}) {
     return Container(
@@ -1218,8 +1236,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
-
-  void _selectImage(BuildContext context) async {
+  void _selectImage(BuildContext context, index) async {
     /// Initialization
     final i18n = AppLocalizations.of(context);
     final pr = ProgressDialog(context, isDismissible: false);
@@ -1232,22 +1249,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
               onImageSelected: (image) async {
                 if (image != null) {
                   /// Show progress dialog
-                  pr.show(i18n.translate("processing"));
+
 
 setState(() {
+  _galleryFile![index]=image;
     _imageFile=image;
+
+ // Navigator.of(context).pop();
 });
                   /// Update gallery image
 
                   // Hide dialog
-                  pr.hide();
+
                   // close modal
-                  Navigator.of(context).pop();
+
+
                 }
               },
             ));
+    Navigator.of(context).pop();
   }
-
   /// Delete image from gallery
   void _deleteGalleryImage(BuildContext context) async {
     /// Initialization

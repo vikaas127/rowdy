@@ -5,6 +5,8 @@ import 'package:dating_app/screens/signup/sign_up_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:otp_text_field/otp_field.dart';
+import 'package:otp_text_field/style.dart';
 
 // ignore: must_be_immutable
 class OtpScreen extends StatefulWidget {
@@ -27,7 +29,7 @@ class OtpScreen extends StatefulWidget {
     Key? key,
     this.title = "Enter OTP",
     this.subTitle = "please enter the OTP sent to your\n device",
-    this.otpLength = 4,
+    this.otpLength = 6,
     required this.validateOtp,
     required this.routeCallback,
     this.themeColor = Colors.black,
@@ -184,7 +186,31 @@ class _OtpScreenState extends State<OtpScreen>
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child:
-          _getInputField,
+          OTPTextField(
+            length: 6,
+            width: MediaQuery.of(context).size.width,
+            fieldWidth: 50,
+            style: TextStyle(
+                fontSize: 17
+            ),
+            textFieldAlignment: MainAxisAlignment.spaceAround,
+            fieldStyle: FieldStyle.box,
+            onCompleted: (pin) {
+              setState(() {
+    showLoadingButton = true;
+    String otp = pin;
+    widget.validateOtp(otp).then((String? value) {
+    showLoadingButton = false;
+    if (value == null) {
+    widget.routeCallback(context);
+    } else if (value.isNotEmpty) {
+    debugPrint('otp msg: $value');
+    clearOtp();
+    }});
+              });
+              print("Completed: " + pin);
+            },
+          ),
         ),
         SizedBox(height: 30,),
         Padding(
@@ -235,7 +261,7 @@ class _OtpScreenState extends State<OtpScreen>
                 width: 0,
                 height: 0,
               ),
-        _getOtpKeyboard
+       // _getOtpKeyboard
       ],
     );
   }

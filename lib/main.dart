@@ -104,8 +104,8 @@ class MyApp extends StatelessWidget {
 /// App theme
 ThemeData _appTheme() {
   return ThemeData(textTheme:TextTheme(
-    bodyText1: TextStyle(color: Colors.white),
-    bodyText2: TextStyle(color: Colors.white),
+    bodyText1: TextStyle(color: Colors.black),
+    bodyText2: TextStyle(color: Colors.black),
     button: TextStyle(color: Colors.black),
     caption: TextStyle(color: Colors.black),
     subtitle1: TextStyle(color: Colors.white,fontSize: 14,), // <-- that's the one
@@ -124,7 +124,7 @@ ThemeData _appTheme() {
     accentColor: APP_ACCENT_COLOR,
     scaffoldBackgroundColor: Colors.white,
     inputDecorationTheme: InputDecorationTheme(
-hintStyle: TextStyle(color: Colors.white),
+      hintStyle: TextStyle(color: Colors.white),
       labelStyle: TextStyle(color: Colors.white),
       filled: true,
       hoverColor: Color(0xffC5204C),

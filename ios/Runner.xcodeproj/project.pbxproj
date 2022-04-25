@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		041C1305275E2BE400C262B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 041C1304275E2BE400C262B5 /* GoogleService-Info.plist */; };
 		04B948FE27589A1E00F5BE2F /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9740EEB21CF90195004384FC /* Debug.xcconfig */; };
-		04B949042758AB1500F5BE2F /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		04B949042758AB1500F5BE2F /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		3439BA5F259206D400D6CD9A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3439BA5E259206D400D6CD9A /* StoreKit.framework */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
@@ -27,7 +27,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				04B949042758AB1500F5BE2F /* BuildFile in Embed Frameworks */,
+				04B949042758AB1500F5BE2F /* (null) in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,6 +396,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = QLQFX3D4DR;
 				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FLUTTER_BUILD_NUMBER = 120;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -544,6 +545,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = QLQFX3D4DR;
 				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FLUTTER_BUILD_NUMBER = 120;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -584,6 +586,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = QLQFX3D4DR;
 				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FLUTTER_BUILD_NUMBER = 120;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

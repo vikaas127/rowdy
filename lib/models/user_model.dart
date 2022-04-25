@@ -383,6 +383,8 @@ class UserModel extends Model {
       USER_DEVICE_TOKEN: userDeviceToken,
       // Set User default settings
       USER_SETTINGS: {
+        USER_MIN_HEIGHT:4,
+        USER_MAX_HEIGHT:7,
         USER_MIN_AGE: 18, // int
         USER_MAX_AGE: 100, // int
         USER_SHOW_ME: 'everyone', // default

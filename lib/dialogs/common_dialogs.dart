@@ -157,7 +157,7 @@ void _buildDialog(
           ),
           content: Text(
             message,
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(fontSize: 18,color: Colors.black),
           ),
           actions: [
             /// Negative button
@@ -166,7 +166,7 @@ void _buildDialog(
                 : TextButton(
                     onPressed: negativeAction,
                     child: Text(negativeText ?? i18n.translate("CANCEL"),
-                        style: TextStyle(fontSize: 18, color: Colors.grey))),
+                        style: TextStyle(fontSize: 18, color: Colors.black))),
 
             /// Positive button
             TextButton(

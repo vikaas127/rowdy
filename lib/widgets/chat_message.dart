@@ -53,7 +53,7 @@ class ChatMessage extends StatelessWidget {
 
                           /// Color for sender
                           : Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(25)),
+                      borderRadius: BorderRadius.circular(10)),
                   child: isImage
                       ? GestureDetector(
                           onTap: () {

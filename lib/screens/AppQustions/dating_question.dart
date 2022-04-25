@@ -16,16 +16,24 @@
     "Single with Kids",  "Divorced", "Divorced with Kids", "Widowed", "Widowed with Kids", "Separated", "Separated with Kids",
 
   ];
+  List<String> QSmoke = [
+    "Yes",
+    "No",
+    "Plnning to Quit",
+    "Occasionally",
+
+
+  ];
   List<String> QIntersetd = [
     "I'm Interested in Men",
-    "I'm Interested in women", "I'm Interested in everyone"
-
-  ];
+    "I'm Interested in women", "I'm Interested in everyone"];
   List<String> QCaste = [
     "Agarwal",
-    "Arora", "Baniya","Others","Brahmin","Gujrati","Rajasthani","Jaat","Yadav","Sindhi","Arya"
-
-  ];
+    "Arora", "Baniya",
+    "Others","Brahmin",
+    "Gujrati","Rajasthani",
+    "Jaat","Yadav","Sindhi",
+    "Arya"];
   List<String> QReligion= [
     "Hindu",
     "Muslim", "Christan","Budha","Sikh","Others",

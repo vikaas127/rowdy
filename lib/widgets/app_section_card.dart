@@ -9,6 +9,10 @@ import 'package:dating_app/screens/about_us_screen.dart';
 import 'package:dating_app/widgets/default_card_border.dart';
 import 'package:dating_app/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../dialogs/vip_dialog.dart';
+import '../screens/signup/needhelp.dart';
 
 class AppSectionCard extends StatelessWidget {
   // Variables
@@ -35,13 +39,18 @@ class AppSectionCard extends StatelessWidget {
           ListTile(
             leading: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SvgIcon("assets/4.0x/verify.svg",color: Colors.deepOrange,),
+              child: SvgPicture.asset("assets/profile/verified.svg",),
             ),
             title: Text("Get verified", style: _textStyle),
             onTap: () {
 
                 showModalBottomSheet<void>(
                   context: context,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(20),
+                    ),
+                  ),
                   builder: (BuildContext context) {
                     return BottomSheetGetVerified(
 
@@ -59,15 +68,43 @@ class AppSectionCard extends StatelessWidget {
           Divider(height: 0),
           //
           ListTile(
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset("assets/profile/wallet.svg",),
+            ),
+            title: Text("Premium",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal,color: Colors.black)),
+
+            onTap: () {
+              /// Show VIP dialog
+              showModalBottomSheet<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return VipDialog(
+
+
+
+                  );
+                },
+              );
+            },
+
+          ),
+          ListTile(
             leading:  Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SvgIcon("assets/4.0x/share.svg",color: Colors.deepOrange,),
+              child: SvgPicture.asset("assets/profile/share.svg",),
             ),
             title:
             Text(i18n.translate("share_with_friends"), style: _textStyle),
             onTap: () async {
               showModalBottomSheet<void>(
                 context: context,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
+                ),
                 builder: (BuildContext context) {
                   return BottomSheetRefer(
 
@@ -83,7 +120,7 @@ class AppSectionCard extends StatelessWidget {
           ListTile(
             leading: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: SvgIcon("assets/4.0x/match.svg",color: Colors.deepOrange,),
+          child: SvgPicture.asset("assets/profile/about.svg",),
           ),
             title: Text(i18n.translate("about_us"), style: _textStyle),
             onTap: () {
@@ -96,26 +133,19 @@ class AppSectionCard extends StatelessWidget {
           ListTile(
             leading:  Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SvgIcon("assets/4.0x/help.svg",color: Colors.deepOrange,),
+              child: SvgPicture.asset("assets/profile/question.svg",),
             ),
             title:
             Text("Need Help", style: _textStyle),
             onTap: () async {
-              showModalBottomSheet<void>(
-                context: context,
-                builder: (BuildContext context) {
-                  return BottomSheetNeedHelp(
-
-
-                  );
-                },
-              );
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Needhelp()));
               /// Share app
              // _appHelper.shareApp();
             },
           ),
           Divider(height: 0),
-          ListTile(
+          /*ListTile(
             leading:
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -155,7 +185,7 @@ class AppSectionCard extends StatelessWidget {
               /// Go to privacy policy
               _appHelper.openTermsPage();
             },
-          ),
+          ),*/
         ],
       ),
     );

@@ -149,6 +149,11 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
 
               showModalBottomSheet<void>(
                 context: context,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
+                ),
                 builder: (BuildContext context) {
                   return BottomSheetSwitch(title: "Married Status",
                     list: marriedstatus,
@@ -184,6 +189,11 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
 
                       showModalBottomSheet<void>(
                         context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
                         builder: (BuildContext context) {
                           return BottomSheetSwitch(title: "Smoke",
                             list: Smoke,
@@ -217,6 +227,11 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
                     child: ListTile(onTap: (){
                       showModalBottomSheet<void>(
                         context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
                         builder: (BuildContext context) {
                           return BottomSheetSwitch(title: "Drink",
                             list: Drink,
@@ -250,6 +265,11 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
                     child: ListTile(onTap: (){
                       showModalBottomSheet<void>(
                         context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
                         builder: (BuildContext context) {
                           return BottomSheetSwitch(title: "Education",
                             list: Education,
@@ -283,6 +303,11 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
                     child: ListTile(onTap: (){
                       showModalBottomSheet<void>(
                         context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
                         builder: (BuildContext context) {
                           return BottomSheetSwitch(title: "Langague Speaking",
                             list: Language,
@@ -315,6 +340,11 @@ class _AdvanceFilterScreenState extends State<AdvanceFilterScreen> {
                     child: ListTile(onTap: (){
                       showModalBottomSheet<void>(
                         context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
                         builder: (BuildContext context) {
                           return BottomSheetSwitch(title: "Why you use Rowdy Baby?",
                             list: Rowdybaby,

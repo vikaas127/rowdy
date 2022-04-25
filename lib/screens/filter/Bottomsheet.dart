@@ -78,20 +78,13 @@ class _BottomSheetSwitch extends State<BottomSheetSwitch> {
               });
 
             },
-
-
-
-
-
-
-
             controller: controller,
             itemsTitle: widget.list,
             values:widget.list,
             groupStyle: GroupStyle(
                 activeColor: Colors.red,
                 itemTitleStyle: TextStyle(
-                    fontSize: 13
+                    fontSize: 13,color: Colors.black
                 )
             ),
             checkFirstElement: false,

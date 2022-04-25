@@ -78,14 +78,11 @@ widget.userdata;
     return ab;
   }
  String? userMarriedSatus= Qtns().QMaritalS[0];
-
-
   List<String>?  userLanguage=[];
   String? userEducation=Qtns().QIntersetd[0];
   String? userHeight=Qtns().Qheight[0];
-  String? usersmoke=Qtns().QMaritalS[0];
+  String? usersmoke=Qtns().QSmoke[0];
   String? userdrink=Qtns().QMaritalS[0];
-
   @override
   void dispose() {
     _pageController.dispose();
@@ -407,7 +404,7 @@ widget.userdata;
 
                           ListView.builder(
                               shrinkWrap: true, scrollDirection: Axis.vertical,
-                              itemCount: Qtns().QMaritalS.length,
+                              itemCount: Qtns().QSmoke.length,
                               itemBuilder: (context, index) {
                                 return Center(
 
@@ -418,7 +415,7 @@ widget.userdata;
                                             onTap: () {
                                               setState(() {
                                                 slectedIndex = index;
-                                                usersmoke=Qtns().QMaritalS[index];
+                                                usersmoke=Qtns().QSmoke[index];
                                               });
                                             },
                                             trailing: slectedIndex == index ? Icon(
@@ -434,7 +431,7 @@ widget.userdata;
 
                                             title:  Text(
                                               '${Qtns()
-                                                  .QMaritalS[index]}',style: slectedIndex == index ?TextStyle(color:   APP_PRIMARY_COLOR,):TextStyle(color:
+                                                  .QSmoke[index]}',style: slectedIndex == index ?TextStyle(color:   APP_PRIMARY_COLOR,):TextStyle(color:
                                             Colors.black,),
                                             )),
                                       ),
@@ -656,7 +653,7 @@ widget.userdata;
 
                           TextFormField(
                             controller: jobController,
-
+                            style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
 
                               filled: true,
@@ -726,6 +723,7 @@ widget.userdata;
 
                           TextFormField(maxLines: 10,
                             maxLength: 300,
+                            style: TextStyle(color: Colors.black),
                             controller: userBioController,
 
                             decoration: InputDecoration(

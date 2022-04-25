@@ -5,26 +5,44 @@ import 'package:dating_app/screens/delete_account_screen.dart';
 import 'package:dating_app/widgets/default_button.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/Profile/BottomSheetNeedHelp.dart';
+
 class DeleteAccountButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context);
     return Center(
-      child: DefaultButton(width: MediaQuery.of(context).size.width*0.70,
+      child: DefaultButton(width: MediaQuery.of(context).size.width*0.85,
         child: Text(i18n.translate("delete_account"),
             style: TextStyle(fontSize: 15)),
         onPressed: () {
           /// Delete account
           ///
           /// Confirm dialog
-          infoDialog(context,
+          ///
+          showModalBottomSheet<void>(
+            context: context,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+            ),
+            builder: (BuildContext context) {
+              return BottomSheetNeedHelp(
+
+
+              );
+            },
+          );
+
+         /* infoDialog(context,
               icon: CircleAvatar(
                 backgroundColor: Colors.red,
                 child: Icon(Icons.close, color: Colors.white),
               ),
               title: '${i18n.translate("delete_account")} ?',
-              message: i18n.translate(
-                  'all_your_profile_data_will_be_permanently_deleted'),
+              message: "If you delete permanently account your loose your chat, requests etc."
+                 ,
               negativeText: i18n.translate("CANCEL"),
               positiveText: i18n.translate("DELETE"),
               negativeAction: () => Navigator.of(context).pop(),
@@ -41,7 +59,7 @@ class DeleteAccountButton extends StatelessWidget {
                         builder: (context) => DeleteAccountScreen()));
                   });
                 });
-              });
+              });*/
         },
       ),
     );

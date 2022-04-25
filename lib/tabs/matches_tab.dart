@@ -12,6 +12,10 @@ import 'package:dating_app/widgets/profile_card.dart';
 import 'package:dating_app/widgets/users_grid.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/constants.dart';
+import '../dialogs/vip_dialog.dart';
+import '../widgets/svg_icon.dart';
+
 class MatchesTab extends StatefulWidget {
   @override
   _MatchesTabState createState() => _MatchesTabState();
@@ -38,18 +42,70 @@ class _MatchesTabState extends State<MatchesTab> {
     /// Initialization
     _i18n = AppLocalizations.of(context);
 
-    return Column(
-      children: [
-        /// Header
-        BuildTitle(
-          svgIconName: 'heart_icon',
-          title: _i18n.translate("matches"),
-        ),
+    return  Scaffold(appBar: AppBar(backgroundColor:APP_ACCENT_COLOR ,
+      elevation: 0,
 
-        /// Show matches
-        Expanded(child: _showMatches()),
-      ],
+    ),
+
+        body:
+        Column(
+          children: [
+            /// Header
+            Container(color: APP_ACCENT_COLOR,
+              height: MediaQuery.of(context).size.height*0.22,width:MediaQuery.of(context).size.width ,
+              child: Column(
+                children: [
+
+                  SvgIcon("assets/4.0x/match.svg",
+                      color: Colors.white, width: 30, height: 30),
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(_i18n.translate("users_who_liked_you",),
+                        style: TextStyle(
+                            fontSize: 18,
+                            color:Colors.white,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                  Text("Upgrade to ROWDY BABY premium to see the 12  \n people who have already SWIPED RIGHT \n on you",style: TextStyle(fontSize: 12,color: Colors.white,),),
+                  SizedBox(height: 3,),
+                  InkWell(onTap: (){
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return VipDialog(
+
+
+
+                        );
+                      },
+                    );
+                  },
+                    child: Center(
+                      child: Container(height: 35,width: MediaQuery.of(context).size.width*0.53,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          color:  Color(0xffFFD700),
+                        ),child:   Center(
+                          child: Text('Upgrade to Premium', textAlign: TextAlign.center, style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400
+                          ),),
+                        ),
+
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            /// Show matches
+            Expanded(child: _showMatches()),
+          ],
+        )
     );
+
   }
 
   /// Handle matches result

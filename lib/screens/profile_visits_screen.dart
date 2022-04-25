@@ -168,8 +168,16 @@ class _ProfileVisitsScreenState extends State<ProfileVisitsScreen> {
                     );
                   } else {
                       /// Show VIP dialog
-                      showDialog(context: context, 
-                        builder: (context) => VipDialog());
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return VipDialog(
+
+
+
+                        );
+                      },
+                    );
                   }
                 },
               );

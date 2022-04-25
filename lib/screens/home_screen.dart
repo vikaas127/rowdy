@@ -228,34 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _i18n = AppLocalizations.of(context);
 
     return Scaffold(
-        appBar: AppBar(elevation: 0,
-          title: Row(
-            children: [
-              Image.asset("assets/images/app_logo.png", width: 40, height: 60),
 
-            ],
-          ),
-          actions: [
-            IconButton(
-                icon: _getNotificationCounter(),
-                onPressed: () async {
-                  // Go to Notifications Screen
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => NotificationsScreen()));
-                }),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                  child:Image.asset("assets/3.0x/filter.png",width: 40,height: 40,) ,
-                  onTap: () async {
-                    // Go to Notifications Screen
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SettingsScreen()));
-                  }),
-            ),
-
-          ],
-        ),
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             elevation: Platform.isIOS ? 0 : 8,

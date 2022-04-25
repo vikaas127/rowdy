@@ -14,28 +14,29 @@ class ProfileTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(0.0),
+
       child: ScopedModelDescendant<UserModel>(
           builder: (context, child, userModel) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// Basic profile info
+
             ProfileBasicInfoCard(),
             SizedBox(height: 10),
             /// App Section Card
             AppSectionCard(),
-            Divider(height: 0),
-            SignOutButtonCard(),
+
+
             Divider(height: 0),
             /// Profile Statistics Card
             ProfileStatisticsCard(),
             Divider(height: 0),
             SizedBox(height: 10),
             /// Show VIP dialog
-            VipAccountCard(),
+
             /// Delete Account Button
-            DeleteAccountButton(),
+
             SizedBox(height: 25),
 
           ],

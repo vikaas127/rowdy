@@ -13,6 +13,9 @@ import 'package:dating_app/widgets/processing.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+import '../screens/filter/settings_screen.dart';
+import '../screens/notifications_screen.dart';
+
 class ConversationsTab extends StatelessWidget {
   // Variables
   final _conversationsApi = ConversationsApi();
@@ -23,13 +26,17 @@ class ConversationsTab extends StatelessWidget {
     final i18n = AppLocalizations.of(context);
     final pr = ProgressDialog(context);
 
-    return Column(
+    return Scaffold(  appBar:  AppBar(backgroundColor:APP_ACCENT_COLOR ,title: Text("Messages",style: TextStyle(fontSize: 20),),
+      elevation: 0,
+
+    ),
+
+    body:
+      Column(
       children: [
+
         /// Header
-        BuildTitle(
-          svgIconName: 'message_icon',
-          title: i18n.translate("chat"),
-        ),
+
 
         /// Conversations stream
         Expanded(
@@ -66,7 +73,7 @@ class ConversationsTab extends StatelessWidget {
                               NetworkImage(conversation[USER_PROFILE_PHOTO]),
                         ),
                         title: Text(conversation[USER_FULLNAME].split(" ")[0],
-                            style: TextStyle(fontSize: 18)),
+                            style: TextStyle(fontSize: 18,color: Colors.black)),
                         subtitle: conversation[MESSAGE_TYPE] == 'text'
                           ? Text(
                               "${conversation[LAST_MESSAGE]}\n"
@@ -113,6 +120,6 @@ class ConversationsTab extends StatelessWidget {
             }),
         ),
       ],
-    );
+    ));
   }
 }

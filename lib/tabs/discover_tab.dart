@@ -17,6 +17,12 @@ import 'package:dating_app/widgets/processing.dart';
 import 'package:dating_app/widgets/profile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:dating_app/api/users_api.dart';
+
+import '../api/notifications_api.dart';
+import '../screens/filter/settings_screen.dart';
+import '../screens/notifications_screen.dart';
+import '../widgets/notification_counter.dart';
+import '../widgets/svg_icon.dart';
 // ignore: must_be_immutable
 class DiscoverTab extends StatefulWidget {
   @override
@@ -32,7 +38,7 @@ class _DiscoverTabState extends State<DiscoverTab> {
   final UsersApi _usersApi = UsersApi();
   List<DocumentSnapshot>? _users;
   late AppLocalizations _i18n;
-
+  final _notificationsApi = NotificationsApi();
   /// Get all Users
   Future<void> _loadUsers(List<DocumentSnapshot> dislikedUsers) async {
     _usersApi.getUsers(dislikedUsers: dislikedUsers).then((users) {
@@ -70,9 +76,59 @@ class _DiscoverTabState extends State<DiscoverTab> {
   Widget build(BuildContext context) {
     /// Initialization
     _i18n = AppLocalizations.of(context);
-    return _showUsers();
-  }
+    return  Scaffold(
+        appBar: AppBar(elevation: 0,
+      title: Row(
+        children: [
+          Image.asset("assets/images/app_logo.png", width: 40, height: 60),
 
+        ],
+      ),
+      actions: [
+        IconButton(
+            icon: _getNotificationCounter(),
+            onPressed: () async {
+              // Go to Notifications Screen
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => NotificationsScreen()));
+            }),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: InkWell(
+              child:Image.asset("assets/3.0x/filter.png",width: 40,height: 40,) ,
+              onTap: () async {
+                // Go to Notifications Screen
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => SettingsScreen()));
+              }),
+        ),
+
+      ],
+    ),
+        body:_showUsers());
+  }
+  Widget _getNotificationCounter() {
+    // Set icon
+    final icon = SvgIcon("assets/icons/bell_icon.svg", width: 33, height: 33);
+
+    /// Handle stream
+    return StreamBuilder<QuerySnapshot>(
+        stream: _notificationsApi.getNotifications(),
+        builder: (context, snapshot) {
+          // Check result
+          if (!snapshot.hasData) {
+            return icon;
+          } else {
+            /// Get total counter to alert user
+            final total = snapshot.data!.docs
+                .where((doc) => doc.data()[N_READ] == false)
+                .toList()
+                .length;
+            if (total == 0) return icon;
+            return NotificationCounter(icon: icon, counter: total);
+          }
+        });
+  }
   Widget _showUsers() {
     final _firestore = FirebaseFirestore.instance;
     Query usersQuery = _firestore.
@@ -86,7 +142,7 @@ class _DiscoverTabState extends State<DiscoverTab> {
     });*/
 
     if (_users == null) {
-      print('vikaas');
+
 
       return Processing(text: _i18n.translate("loading"));
     } else if (_users!.isEmpty) {

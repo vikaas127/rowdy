@@ -233,8 +233,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                       showModalBottomSheet<void>(
                         context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
                         builder: (BuildContext context) {
-                          return BottomSheetSwitch(title: "Married Status",
+                          return BottomSheetSwitch(
+                            title: "Married Status",
                             list: marriedstatus,
                             switchValue: Status.MaritalStatus,
 
@@ -262,6 +268,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     child: ListTile(onTap: (){
                       showModalBottomSheet<void>(
                         context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
                         builder: (BuildContext context) {
                           return BottomSheetSwitch(title: "Smoke",
                             list: Smoke,
@@ -290,6 +301,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     child: ListTile(onTap: (){
                       showModalBottomSheet<void>(
                         context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
                         builder: (BuildContext context) {
                           return BottomSheetSwitch(title: "Drink",
                             list: Drink,
@@ -319,6 +335,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     child: ListTile(onTap: (){
                       showModalBottomSheet<void>(
                         context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
                         builder: (BuildContext context) {
                           return BottomSheetSwitch(title: "Langague Speaking",
                             list: Language,
@@ -348,6 +369,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     child: ListTile(onTap: (){
                       showModalBottomSheet<void>(
                         context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
                         builder: (BuildContext context) {
                           return BottomSheetSwitch(title: "Education",
                             list: Education,

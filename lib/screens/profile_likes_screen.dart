@@ -66,7 +66,6 @@ class _ProfileLikesScreenState extends State<ProfileLikesScreen> {
       });
     }
   }
-
   @override
   void initState() {
     super.initState();
@@ -87,13 +86,11 @@ class _ProfileLikesScreenState extends State<ProfileLikesScreen> {
     /// Listener
     _loadMoreUsersListener();
   }
-
   @override
   void dispose() {
     _gridViewController.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     /// Initialization
@@ -126,8 +123,16 @@ class _ProfileLikesScreenState extends State<ProfileLikesScreen> {
       Text("Upgrade to ROWDY BABY premium to see the 12  \n people who have already SWIPED RIGHT \n on you",style: TextStyle(fontSize: 12,color: Colors.white,),),
               SizedBox(height: 3,),
                   InkWell(onTap: (){
-                    showDialog(context: context,
-                        builder: (context) => VipDialog());
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return VipDialog(
+
+
+
+                        );
+                      },
+                    );
                   },
                     child: Center(
                       child: Container(height: 35,width: MediaQuery.of(context).size.width*0.53,
@@ -155,7 +160,6 @@ class _ProfileLikesScreenState extends State<ProfileLikesScreen> {
           ],
         ));
   }
-
   /// Show profiles
   Widget _showProfiles() {
     if (_likedMeUsers == null) {
@@ -212,8 +216,16 @@ class _ProfileLikesScreenState extends State<ProfileLikesScreen> {
                         );
                       } else {
                         /// Show VIP dialog
-                        showDialog(context: context, 
-                          builder: (context) => VipDialog());
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return VipDialog(
+
+
+
+                            );
+                          },
+                        );
                       }
                     },
                   );

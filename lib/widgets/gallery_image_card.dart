@@ -80,8 +80,16 @@ class GalleryImageCard extends StatelessWidget {
     /// Check user vip account
     if (!UserModel().userIsVip && index > 3) {
       /// Show VIP dialog
-      showDialog(context: context, 
-        builder: (context) => VipDialog());
+      showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return VipDialog(
+
+
+
+          );
+        },
+      );
       debugPrint('You need to activate vip account');
       return;
     }
@@ -118,8 +126,16 @@ class GalleryImageCard extends StatelessWidget {
     /// Check user vip account
     if (!UserModel().userIsVip && index > 3) {
       /// Show VIP dialog
-      showDialog(context: context, 
-         builder: (context) => VipDialog());
+      showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return VipDialog(
+
+
+
+          );
+        },
+      );
       debugPrint('You need to activate vip account');
       return;
     }

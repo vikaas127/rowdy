@@ -132,7 +132,6 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver{
         nSenderId: UserModel().user.userId,
         nUserDeviceToken: widget.user.userDeviceToken);
   }
-
   @override
   void initState() {
     super.initState();
@@ -178,7 +177,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver{
       child:
       SafeArea(
         child: Scaffold(
-          appBar: AppBar(
+          appBar: AppBar(elevation: 0,
             // Show User profile info
             title: GestureDetector(
               child: ListTile(
@@ -187,7 +186,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver{
                   backgroundImage: NetworkImage(widget.user.userProfilePhoto),
                 ),
                 title:
-                    Text(widget.user.userFullname, style: TextStyle(fontSize: 18)),
+                    Text(widget.user.userFullname, style: TextStyle(fontSize: 18,color: Colors.black)),
               ),
               onTap: () {
                 /// Go to profile screen
@@ -320,7 +319,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver{
 
               /// Text Composer
               Container(
-                color: Colors.grey.withAlpha(50),
+                //color: Colors.grey.withAlpha(50),
                 child: ListTile(
                     leading: IconButton(
                         icon: SvgIcon("assets/icons/camera_icon.svg",
@@ -332,25 +331,68 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver{
                           /// Update scroll
                           _scrollMessageList();
                         }),
-                    title: TextField(
-                      controller: _textController,
-                      minLines: 1,
-                      maxLines: 4,
-                      decoration: InputDecoration(fillColor:  Colors.grey.withAlpha(50),
-                          hintText: _i18n.translate("type_a_message"),
-                          hintStyle: TextStyle(color:  Color(0xffC5204C),),
-                        focusedBorder:OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                          borderSide: BorderSide(
-                            color:  Colors.grey.withAlpha(50),
-                            width: 2.0,
-                          ),),
+                    title: Container(height: 50,
+                      child: TextField(
+                        style: TextStyle(color: Colors.black),
+                        controller: _textController,
+                        minLines: 1,
+                      //  maxLines: 4,
+                        decoration: InputDecoration(
+
+                          hintStyle: TextStyle(color: Colors.grey),
+                          labelStyle: TextStyle(color: Colors.grey),
+                          filled: true,
+                          hoverColor: Colors.grey,
+                          fillColor:  Colors.grey.withAlpha(50),
+                          errorStyle: TextStyle(fontSize: 16),
+                          focusedBorder:OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(28.0),
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: 2.0,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(28.0),
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: 2.0,
+                            ),
+                          ),
+                          disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(28.0),
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: 2.0,
+                            ),
+                          ),
+                          focusColor: Colors.grey,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                            ),
+                            borderRadius: BorderRadius.circular(28),
+                          ),
+
+
+
+
+
+
+
+
+
+
+                            hintText: _i18n.translate("type_a_message"),
+
+
+                        ),
+                        onChanged: (text) {
+                          setState(() {
+                            _isComposing = text.isNotEmpty;
+                          });
+                        },
                       ),
-                      onChanged: (text) {
-                        setState(() {
-                          _isComposing = text.isNotEmpty;
-                        });
-                      },
                     ),
                     trailing: IconButton(
                         icon: Icon(Icons.send,

@@ -55,14 +55,12 @@ const String C_FLAGGED_USERS = "FlaggedUsers";
 const String C_CONNECTIONS = "Connections";
 const String C_MATCHES = "Matches";
 const String C_Call = "Call";
-
 const String C_CONVERSATIONS = "Conversations";
 const String C_LIKES = "Likes";
 const String C_VISITS = "Visits";
 const String C_DISLIKES = "Dislikes";
 const String C_MESSAGES = "Messages";
 const String C_NOTIFICATIONS = "Notifications";
-
 /// DATABASE FIELDS FOR AppInfo COLLECTION  ///
 ///
 const String ANDROID_APP_CURRENT_VERSION = "android_app_current_version";

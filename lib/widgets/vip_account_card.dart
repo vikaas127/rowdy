@@ -12,13 +12,21 @@ class VipAccountCard extends StatelessWidget {
     return  ListTile(
         leading: Image.asset("assets/images/crow_badge_small.png",
             width: 35, height: 35),
-        title: Text(i18n.translate("vip_account"),
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        trailing: Icon(Icons.arrow_forward),
+        title: Text("Premium",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal,color: Colors.black)),
+
         onTap: () {
           /// Show VIP dialog
-          showDialog(context: context, 
-            builder: (context) => VipDialog());
+          showModalBottomSheet<void>(
+            context: context,
+            builder: (BuildContext context) {
+              return VipDialog(
+
+
+
+              );
+            },
+          );
         },
 
     );
